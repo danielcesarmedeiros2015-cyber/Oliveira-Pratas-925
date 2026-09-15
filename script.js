@@ -864,22 +864,43 @@ function renderChallengeGame(container) {
     showChallenge();
 }
 
-// JOGO 5: ROLETA DE DESCONTOS
+// ==========================================================================
+// JOGO 5: ROLETA DE DESCONTOS (SISTEMA COM TRAVA DE 24 HORAS)
+// ==========================================================================
 function renderRouletteGame(container) {
-    const existingBenefit = localStorage.getItem('op_benefit_percent');
+    const lastSpinTimestamp = localStorage.getItem('op_last_spin_time');
+    const now = Date.now();
+    const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000; // 24 horas em milissegundos
 
-    if (existingBenefit) {
+    // Verifica se já se passaram 24h desde o último giro
+    if (lastSpinTimestamp && (now - parseInt(lastSpinTimestamp, 10)) < TWENTY_FOUR_HOURS) {
+        const remainingTime = TWENTY_FOUR_HOURS - (now - parseInt(lastSpinTimestamp, 10));
+        const hoursLeft = Math.floor(remainingTime / (1000 * 60 * 60));
+        const minutesLeft = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+
+        const activeBenefit = localStorage.getItem('op_benefit_percent') || 0;
+
         container.innerHTML = `
             <div class="game-box">
                 <h2>🎡 Roleta de Descontos</h2>
                 <p style="margin: 20px 0; font-size: 1.1rem; color: #25d366;">
-                    Você já conquistou seu benefício de <strong>${existingBenefit}% DE DESCONTO</strong>!
+                    Você já rodou a roleta recentemente!
                 </p>
-                <p style="color: var(--text-secondary); margin-bottom: 20px;">Este benefício está vinculado ao seu carrinho para ser utilizado nas suas compras.</p>
+                ${activeBenefit > 0 ? `<p style="margin-bottom: 15px;">Seu desconto ativo no carrinho é de: <strong>${activeBenefit}% DE DESCONTO</strong>.</p>` : ''}
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Você poderá girar novamente em aproximadamente <strong>${hoursLeft}h e ${minutesLeft}min</strong>.
+                </p>
                 <button class="btn btn-primary" onclick="closeGameModal(); openCartModal();">Ir para o Carrinho 🛒</button>
             </div>
         `;
         return;
+    }
+
+    // Se passou das 24h, limpa o desconto antigo para ele conquistar um novo
+    if (lastSpinTimestamp && (now - parseInt(lastSpinTimestamp, 10)) >= TWENTY_FOUR_HOURS) {
+        localStorage.removeItem('op_benefit_percent');
+        localStorage.removeItem('op_last_spin_time');
+        calculateCartTotals();
     }
 
     trackGA4Event('inicio_roleta');
@@ -887,7 +908,7 @@ function renderRouletteGame(container) {
     container.innerHTML = `
         <div class="game-box">
             <h2>🎡 Roleta de Descontos</h2>
-            <p>Gire a roleta e descubra qual benefício você vai conquistar!</p>
+            <p>Gire a roleta e descubra qual benefício você vai conquistar hoje!</p>
             <div class="roulette-wrapper">
                 <div class="roulette-pointer"></div>
                 <canvas id="rouletteCanvas" width="300" height="300"></canvas>
@@ -938,12 +959,7 @@ function spinRoulette() {
     spinBtn.disabled = true;
 
     const numSlices = slices.length;
-    
-    // Sorteia apenas entre os índices de 4 a 9 (correspondentes às fatias de 5% a 10%)
-    const minIndex = 4; // Slice "5%"
-    const maxIndex = 9; // Slice "10%"
-    const winningIndex = Math.floor(Math.random() * (maxIndex - minIndex + 1)) + minIndex;
-    
+    const winningIndex = Math.floor(Math.random() * numSlices);
     const sliceAngle = (2 * Math.PI) / numSlices;
 
     const targetAngle = (3 * Math.PI / 2) - (winningIndex * sliceAngle) - (sliceAngle / 2);
@@ -975,6 +991,9 @@ function spinRoulette() {
 function finishRoulette(percent) {
     trackGA4Event('conclusao_roleta', { percent });
     triggerConfetti();
+
+    // Salva o momento em que o usuário girou a roleta
+    localStorage.setItem('op_last_spin_time', Date.now().toString());
 
     const resDiv = document.getElementById('rouletteResult');
     resDiv.innerHTML = `
