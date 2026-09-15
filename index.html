@@ -17,7 +17,7 @@
             <nav class="nav-links" id="navLinks">
                 <a href="#" onclick="filterProducts('TODOS')">Início</a>
                 <a href="#" onclick="filterProducts('CORRENTES')">Correntes</a>
-                <a href="#" onclick="filterProducts('PULSEIRAS MASCULINAS')">Pulseiras</a>
+                <a href="#" onclick="filterProducts('PULSEIRAS')">Pulseiras</a>
                 <a href="#" onclick="filterProducts('BRACELETES')">Braceletes</a>
                 <a href="#" onclick="filterProducts('PIERCINGS')">Piercings</a>
             </nav>
@@ -51,6 +51,24 @@
             </div>
         </section>
     </main>
+
+    <!-- MODAL DO CARRINHO SIMPLES -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCartModal()">&times;</button>
+            <h2>Seu Carrinho</h2>
+            <div id="cart-items-container" style="margin: 20px 0; max-height: 250px; overflow-y: auto;">
+                <!-- Itens do carrinho -->
+            </div>
+            <div class="cart-summary">
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="cart-total-price">R$ 0,00</span>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="checkoutWhatsApp()">Finalizar Pedido no WhatsApp</button>
+        </div>
+    </div>
 
     <!-- RODAPÉ -->
     <footer class="footer">
