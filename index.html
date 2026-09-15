@@ -3,79 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oliveira Pratas 925</title>
+    <title>Oliveira Pratas 925 - Joias em Prata Legítima</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
 </head>
 <body>
-
-    <!-- CABEÇALHO / NAVBAR MODERNA -->
-    <header class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="brand-logo">
-                <span class="brand-name">OLIVEIRA PRATAS 925</span>
-            </a>
-            <nav class="nav-links" id="navLinks">
-                <a href="#" onclick="filterProducts('TODOS')">Início</a>
-                <a href="#" onclick="filterProducts('CORRENTES')">Correntes</a>
-                <a href="#" onclick="filterProducts('PULSEIRAS')">Pulseiras</a>
-                <a href="#" onclick="filterProducts('BRACELETES')">Braceletes</a>
-                <a href="#" onclick="filterProducts('PIERCINGS')">Piercings</a>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="#inicio">
+                    <img src="logo.png" alt="Oliveira Pratas 925 Logo" class="logo-img">
+                    <span class="logo-text">Oliveira Pratas 925</span>
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li><a href="#jogos">Jogos</a></li>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                </ul>
             </nav>
-            <div class="nav-actions">
-                <button class="action-btn" onclick="openCartModal()">
-                    🛒 <span class="badge" id="cart-count">0</span>
-                </button>
+            <div class="header-actions">
+                <a href="https://www.instagram.com/oliveira.pratas_925" target="_blank" class="icon-btn" title="Instagram">📸</a>
+                <a href="https://wa.me/5564992145149" target="_blank" class="icon-btn" title="WhatsApp">💬</a>
+                <button class="icon-btn" id="btnFavoritosModal" title="Favoritos">❤️ <span id="favCount">0</span></button>
+                <button class="icon-btn" id="btnCarrinhoModal" title="Carrinho">🛒 <span id="cartCount">0</span></button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir Menu">☰</button>
             </div>
         </div>
     </header>
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main>
-        <!-- HERO SECTION -->
-        <section class="hero-section">
-            <div class="container">
-                <h1 class="hero-title">Oliveira Pratas 925</h1>
-                <p class="hero-subtitle">Elegância e Autenticidade em Prata 925 legítima.</p>
+    <!-- Início -->
+    <section id="inicio" class="hero">
+        <div class="container hero-content">
+            <h1>Oliveira Pratas 925</h1>
+            <p class="hero-subtitle">Elegância, sofisticação e prata legítima para todos os momentos.</p>
+            <div class="hero-buttons">
+                <a href="#catalogo" class="btn btn-primary">Ver Catálogo</a>
+                <a href="https://wa.me/5564992145149" target="_blank" class="btn btn-secondary">Atendimento WhatsApp</a>
             </div>
-        </section>
-
-        <!-- CATÁLOGO DE PRODUTOS -->
-        <section class="container section-padding">
-            <h2 class="section-title">
-                <span>Catálogo</span>
-                Nossos Produtos
-            </h2>
-            
-            <div id="product-grid" class="products-grid">
-                <!-- Os produtos serão injetados dinamicamente via script.js -->
-            </div>
-        </section>
-    </main>
-
-    <!-- MODAL DO CARRINHO SIMPLES -->
-    <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeCartModal()">&times;</button>
-            <h2>Seu Carrinho</h2>
-            <div id="cart-items-container" style="margin: 20px 0; max-height: 250px; overflow-y: auto;">
-                <!-- Itens do carrinho -->
-            </div>
-            <div class="cart-summary">
-                <div class="summary-row total">
-                    <span>Total:</span>
-                    <span id="cart-total-price">R$ 0,00</span>
-                </div>
-            </div>
-            <button class="btn btn-primary btn-block" onclick="checkoutWhatsApp()">Finalizar Pedido no WhatsApp</button>
         </div>
-    </div>
+    </section>
 
-    <!-- RODAPÉ -->
+    <!-- Confiança / Benefícios -->
+    <section class="trust-section">
+        <div class="container trust-grid">
+            <div class="trust-item"><span>💎</span><p>Prata Legítima</p></div>
+            <div class="trust-item"><span>🛡️</span><p>Garantia e Certificado</p></div>
+            <div class="trust-item"><span>💬</span><p>Atendimento WhatsApp</p></div>
+            <div class="trust-item"><span>📍</span><p>Entrega em Caldas Novas</p></div>
+            <div class="trust-item"><span>📦</span><p>Envio pelos Correios</p></div>
+            <div class="trust-item"><span>🛍️</span><p>Retirada Presencial</p></div>
+        </div>
+    </section>
+
+    <!-- Mais Vendidos -->
+    <section class="section container" id="mais-vendidos">
+        <h2>Mais Vendidos</h2>
+        <div class="products-grid" id="gridMaisVendidos"></div>
+    </section>
+
+    <!-- Catálogo -->
+    <section class="section container" id="catalogo">
+        <h2>Catálogo Completo</h2>
+        <div class="catalog-controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Pesquisar peças...">
+                <span class="search-icon">🔎</span>
+            </div>
+            <div class="categories-filter" id="categoriesFilter">
+                <button class="filter-btn active" data-category="todos">Todos</button>
+                <button class="filter-btn" data-category="aliancas">Alianças</button>
+                <button class="filter-btn" data-category="aneis">Anéis</button>
+                <button class="filter-btn" data-category="dedeiras">Dedeiras</button>
+                <button class="filter-btn" data-category="brincos">Brincos</button>
+                <button class="filter-btn" data-category="colares">Colares Feminino</button>
+                <button class="filter-btn" data-category="correntes">Correntes Masculinas</button>
+                <button class="filter-btn" data-category="pingentes">Pingentes</button>
+                <button class="filter-btn" data-category="pulseiras-masc">Pulseiras Masculinas</button>
+                <button class="filter-btn" data-category="pulseiras-fem">Pulseiras Femininas</button>
+                <button class="filter-btn" data-category="braceletes">Braceletes</button>
+                <button class="filter-btn" data-category="tornozeleiras">Tornozeleiras</button>
+                <button class="filter-btn" data-category="cuidados">Cuidados</button>
+                <button class="filter-btn" data-category="piercings">Piercings</button>
+            </div>
+        </div>
+        <div class="products-grid" id="catalogGrid"></div>
+    </section>
+
+    <!-- Jogos e Roleta -->
+    <section class="section games-section container" id="jogos">
+        <div class="games-header">
+            <h2>🎁 JOGUE E CONQUISTE SEU BENEFÍCIO!</h2>
+            <p>Prepare-se para se divertir, testar seus conhecimentos e mostrar que entende de prata! ✨</p>
+            <p>Ao participar, você terá a oportunidade de conquistar um benefício especial da Oliveira Pratas 925. 🍀</p>
+            <p class="game-note">Benefício válido para produtos participantes. Alianças não participam da promoção.</p>
+        </div>
+        
+        <div class="games-hub" id="gamesHub">
+            <div class="game-card" onclick="openGame('memoria')">
+                <h3>💎 Jogo da Memória</h3>
+                <p>Encontre os pares usando fotos reais das nossas joias.</p>
+                <button class="btn btn-small">Jogar</button>
+            </div>
+            <div class="game-card" onclick="openGame('quiz')">
+                <h3>925 — Quiz de Prata 925</h3>
+                <p>Teste seus conhecimentos sobre prata e joias.</p>
+                <button class="btn btn-small">Jogar</button>
+            </div>
+            <div class="game-card" onclick="openGame('cacaPalavras')">
+                <h3>🔎 Caça-palavras</h3>
+                <p>Encontre oito palavras escondidas em todas as direções.</p>
+                <button class="btn btn-small">Jogar</button>
+            </div>
+            <div class="game-card" onclick="openGame('desafioPrata')">
+                <h3>🥈 Desafio da Prata</h3>
+                <p>Responda perguntas e reconheça peças reais do nosso catálogo.</p>
+                <button class="btn btn-small">Jogar</button>
+            </div>
+            <div class="game-card highlight-card" onclick="openGame('roleta')">
+                <h3>🎡 Roleta de Descontos</h3>
+                <p>Gire para tentar conquistar seu benefício especial!</p>
+                <button class="btn btn-small btn-primary">Girar Roleta</button>
+            </div>
+        </div>
+
+        <!-- Área de Containers dos Jogos -->
+        <div id="gameContainerArea" class="game-container-area" style="display: none;">
+            <button class="btn btn-small btn-secondary" onclick="closeGameArea()">← Voltar aos Jogos</button>
+            <div id="gameActiveContent"></div>
+        </div>
+    </section>
+
+    <!-- Sobre Nós -->
+    <section class="section container" id="sobre">
+        <h2>Sobre Nós</h2>
+        <div class="about-content">
+            <p>A <strong>Oliveira Pratas 925</strong> é uma marca dedicada a oferecer joias em prata legítima com alto padrão de qualidade, sofisticação e elegância. Nosso compromisso é entregar peças autênticas que valorizam a sua beleza e marcam momentos inesquecíveis.</p>
+            <p>Trabalhamos com rigoroso controle de qualidade, garantindo que cada item cumpra com os mais altos padrões do mercado de joias em prata.</p>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
     <footer class="footer">
-        <div class="container footer-bottom">
+        <div class="container footer-grid">
+            <div>
+                <h3>Oliveira Pratas 925</h3>
+                <p>Instagram: <a href="https://www.instagram.com/oliveira.pratas_925" target="_blank">@oliveira.pratas_925</a></p>
+                <p>WhatsApp: <a href="https://wa.me/5564992145149" target="_blank">(64) 99214-5149</a></p>
+            </div>
+            <div>
+                <h3>Formas de Pagamento</h3>
+                <p>Pix, Dinheiro, Cartão de Crédito e Débito.</p>
+            </div>
+            <div>
+                <h3>Entrega & Retirada</h3>
+                <p>Entrega em Caldas Novas, Envio pelos Correios e Retirada Presencial.</p>
+            </div>
+            <div>
+                <h3>Garantia & Promoções</h3>
+                <p>Prata legítima com garantia e certificado. Alianças não participam da promoção de benefícios.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
             <p>&copy; 2026 Oliveira Pratas 925. Todos os direitos reservados.</p>
         </div>
     </footer>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.me/5564992145149" class="whatsapp-float" target="_blank" title="Fale Conosco no WhatsApp">💬</a>
+
+    <!-- Modal Carrinho -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Carrinho de Compras</h3>
+                <button class="close-modal" id="closeCart">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="cartItemsList"></div>
+                <div id="discountInfoContainer" style="margin: 10px 0; font-weight: bold; color: green;"></div>
+                <div class="cart-summary">
+                    <p>Subtotal: <span id="cartSubtotal">R$ 0,00</span></p>
+                    <p id="discountRow" style="display:none;">Desconto Roleta: <span id="cartDiscountVal">R$ 0,00</span></p>
+                    <p>Total: <span id="cartTotal">R$ 0,00</span></p>
+                </div>
+                <div class="checkout-options">
+                    <h4>Forma de Pagamento</h4>
+                    <select id="paymentMethod">
+                        <option value="pix">Pix (Sem acréscimo)</option>
+                        <option value="dinheiro">Dinheiro (Sem acréscimo)</option>
+                        <option value="debito">Cartão de Débito</option>
+                        <option value="credito">Cartão de Crédito</option>
+                    </select>
+                    <div id="creditInstallmentsContainer" style="display: none; margin-top: 10px;">
+                        <label>Parcelas:</label>
+                        <select id="creditInstallments">
+                            <option value="1">1x — 3,09%</option>
+                            <option value="2">2x — 3,04%</option>
+                            <option value="3">3x — 3,34%</option>
+                            <option value="4">4x — 5,24%</option>
+                            <option value="5">5x — 5,34%</option>
+                            <option value="6">6x — 5,44%</option>
+                            <option value="7">7x — 6,59%</option>
+                            <option value="8">8x — 6,78%</option>
+                            <option value="9">9x — 7,47%</option>
+                            <option value="10">10x — 8,15%</option>
+                        </select>
+                    </div>
+
+                    <h4 style="margin-top: 15px;">Forma de Entrega</h4>
+                    <select id="deliveryMethod">
+                        <option value="caldas">Entrega em Caldas Novas (Grátis, mesmo dia)</option>
+                        <option value="correios">Correios</option>
+                        <option value="retirada">Retirada Presencial</option>
+                    </select>
+
+                    <div id="deliveryAddressContainer" style="margin-top: 10px;">
+                        <div id="fieldsCaldas" class="delivery-fields">
+                            <p style="font-size: 0.9rem; color: #666;">Você enviará a localização/endereço pelo WhatsApp.</p>
+                        </div>
+                        <div id="fieldsCorreios" class="delivery-fields" style="display:none;">
+                            <input type="text" id="cep" placeholder="CEP">
+                            <input type="text" id="rua" placeholder="Rua">
+                            <input type="text" id="quadra" placeholder="Quadra">
+                            <input type="text" id="lote" placeholder="Lote">
+                            <input type="text" id="numero" placeholder="Número (quando aplicável)">
+                        </div>
+                        <div id="fieldsRetirada" class="delivery-fields" style="display:none;">
+                            <p style="font-size: 0.9rem; color: #666;">Retirada presencial combinada via WhatsApp.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="clearCartBtn">Limpar Carrinho</button>
+                <button class="btn btn-primary" id="checkoutWhatsappBtn">Finalizar pelo WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Favoritos -->
+    <div class="modal" id="favModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Meus Favoritos</h3>
+                <button class="close-modal" id="closeFav">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="favItemsList"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Script Principal -->
     <script src="script.js"></script>
