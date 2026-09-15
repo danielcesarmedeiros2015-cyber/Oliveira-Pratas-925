@@ -235,6 +235,7 @@ body {
     color: var(--text-primary);
     font-size: 1.8rem;
     cursor: pointer;
+    padding: 5px 10px;
 }
 
 /* HERO SECTION */
@@ -912,6 +913,10 @@ body {
 
 /* RESPONSIVIDADE */
 @media (max-width: 768px) {
+    .mobile-toggle {
+        display: block;
+    }
+
     .nav-links {
         display: none;
         position: absolute;
@@ -926,10 +931,6 @@ body {
 
     .nav-links.active {
         display: flex;
-    }
-
-    .mobile-toggle {
-        display: block;
     }
 
     .hero-title {
