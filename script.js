@@ -48,7 +48,6 @@ const PRODUCTS = [
     // BRINCOS
     { id: 37, name: "Brinco Redondo 12mm", price: 80, category: "BRINCOS", image: "Brinco Redondo 12mm de Prata 925.png", isBestSeller: false },
     { id: 38, name: "Brinco Redondo Argola Torcida", price: 30, category: "BRINCOS", image: "Brinco Redondo Argola Torcida Prata 925.png", isBestSeller: true },
-    { id: 39, name: "Par Brinco Coração 8mm", price: 50, category: "BRINCOS", image: "Par Brinco Coração 8mm.jpeg", isBestSeller: true },
     { id: 41, name: "Par de Brincos Argola Click + Cruz", price: 80, category: "BRINCOS", image: "Par de Brincos Argola Click com Pingente Cruz Cravejada.png", isBestSeller: true },
     { id: 42, name: "Trio de brincos bolinhas", price: 40, category: "BRINCOS", image: "Trio de brincos bolinhas.jpg", isBestSeller: false },
     { id: 43, name: "Trio de Brincos Redondo Royal", price: 40, category: "BRINCOS", image: "Trio de Brincos Redondo Royal.png", isBestSeller: false },
@@ -825,7 +824,7 @@ function renderWordSearchGame(container) {
 function renderChallengeGame(container) {
     const challenges = [
         { q: "Qual destas peças é uma Corrente Grumet?", targetId: 76, options: [76, 24, 130] },
-        { q: "Qual destas peças é um Limpa Pratas?", targetId: 130, options: [39, 130, 117] }
+        { q: "Qual destas peças é um Limpa Pratas?", targetId: 130, options: [38, 130, 117] }
     ];
 
     let step = 0;
