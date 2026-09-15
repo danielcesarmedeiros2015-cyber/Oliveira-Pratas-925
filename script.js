@@ -60,7 +60,6 @@ const PRODUCTS = [
     { id: 50, name: "Trio Redondo Pedra Verde 3, 4 e 5mm", price: 40, category: "BRINCOS", image: "Trio Redondo Pedra Verde 3, 4 e 5mm.jpg", isBestSeller: false },
 
     // COLARES FEMININO
-    { id: 51, name: "Choker de Prata 925 Corações Rosa", price: 130, category: "COLARES FEMININO", image: "Choker de Prata 925 Corações Rosa.jpg", isBestSeller: false },
     { id: 52, name: "Choker de Prata 925 Corações Verde", price: 130, category: "COLARES FEMININO", image: "Choker de Prata 925 Corações Verde.jpg", isBestSeller: false },
     { id: 53, name: "Choker de Prata 925 Love", price: 130, category: "COLARES FEMININO", image: "Choker de Prata 925 Love.jpg", isBestSeller: false },
     { id: 54, name: "Colar Barbie", price: 99, category: "COLARES FEMININO", image: "Colar Barbie em Prata 925 Legítima.jpg", isBestSeller: false },
@@ -939,7 +938,12 @@ function spinRoulette() {
     spinBtn.disabled = true;
 
     const numSlices = slices.length;
-    const winningIndex = Math.floor(Math.random() * numSlices);
+    
+    // Sorteia apenas entre os índices de 4 a 9 (correspondentes às fatias de 5% a 10%)
+    const minIndex = 4; // Slice "5%"
+    const maxIndex = 9; // Slice "10%"
+    const winningIndex = Math.floor(Math.random() * (maxIndex - minIndex + 1)) + minIndex;
+    
     const sliceAngle = (2 * Math.PI) / numSlices;
 
     const targetAngle = (3 * Math.PI / 2) - (winningIndex * sliceAngle) - (sliceAngle / 2);
