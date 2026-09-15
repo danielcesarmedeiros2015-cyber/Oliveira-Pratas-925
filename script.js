@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SCRIPT OLIVEIRA PRATAS 925 - ATUALIZADO (IMAGEM CORRIGIDA + ZOOM)
+   SCRIPT OLIVEIRA PRATAS 925 - ATUALIZADO (SEM PASTA IMAGENS + ZOOM)
    ========================================================================== */
 
 // BASE DE DADOS OFICIAL DE PRODUTOS
@@ -248,8 +248,8 @@ function createProductCardHTML(product) {
     const isFav = favorites.includes(product.id);
     return `
         <div class="product-card">
-            <div class="product-img-wrapper" style="cursor: pointer;" onclick="openImageZoom('imagens/${product.image}', '${product.name}')" title="Clique para ver a imagem inteira">
-                <img src="imagens/${product.image}" alt="${product.name}" class="product-img" loading="lazy" style="object-fit: contain; background-color: #121216;" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/222/fff?text=Joia';">
+            <div class="product-img-wrapper" style="cursor: pointer;" onclick="openImageZoom('${product.image}', '${product.name}')" title="Clique para ver a imagem inteira">
+                <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy" style="object-fit: contain; background-color: #121216;" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/222/fff?text=Joia';">
                 <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite(${product.id})">
                     ${isFav ? '❤️' : '🤍'}
                 </button>
@@ -337,10 +337,10 @@ function renderFavoritesModal() {
     container.innerHTML = favProducts.map(p => `
         <div class="cart-item" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
             <img 
-                src="imagens/${p.image}" 
+                src="${p.image}" 
                 alt="${p.name}" 
                 style="width: 50px; height: 50px; object-fit: contain; background: #121216; border-radius: 6px; flex-shrink: 0; cursor: pointer;"
-                onclick="openImageZoom('imagens/${p.image}', '${p.name}')"
+                onclick="openImageZoom('${p.image}', '${p.name}')"
                 onerror="this.onerror=null; this.src='https://via.placeholder.com/50/222/fff?text=Joia';"
             >
             <div style="flex: 1; min-width: 0; padding-right: 5px;">
@@ -420,7 +420,7 @@ function renderCartModal() {
         const subtotal = product.price * item.qty;
         return `
             <div class="cart-item">
-                <img src="imagens/${product.image}" class="cart-item-img" alt="${product.name}" style="object-fit: contain; background: #121216; cursor: pointer;" onclick="openImageZoom('imagens/${product.image}', '${product.name}')" onerror="this.onerror=null; this.src='https://via.placeholder.com/50/222/fff?text=Joia';">
+                <img src="${product.image}" class="cart-item-img" alt="${product.name}" style="object-fit: contain; background: #121216; cursor: pointer;" onclick="openImageZoom('${product.image}', '${product.name}')" onerror="this.onerror=null; this.src='https://via.placeholder.com/50/222/fff?text=Joia';">
                 <div class="cart-item-details">
                     <div class="cart-item-title">${product.name}</div>
                     <div class="cart-item-price">R$ ${product.price.toFixed(2).replace('.', ',')} x ${item.qty} = <strong>R$ ${subtotal.toFixed(2).replace('.', ',')}</strong></div>
@@ -637,7 +637,7 @@ function renderMemoryGame(container) {
         cardEl.onclick = () => {
             if (flippedCards.length < 2 && !cardEl.classList.contains('flipped')) {
                 cardEl.classList.add('flipped');
-                cardEl.innerHTML = `<img src="imagens/${item.image}" alt="Joia" style="object-fit: contain; width: 100%; height: 100%;" onerror="this.onerror=null; this.src='https://via.placeholder.com/50/222/fff?text=Joia';">`;
+                cardEl.innerHTML = `<img src="${item.image}" alt="Joia" style="object-fit: contain; width: 100%; height: 100%;" onerror="this.onerror=null; this.src='https://via.placeholder.com/50/222/fff?text=Joia';">`;
                 flippedCards.push({ cardEl, item });
 
                 if (flippedCards.length === 2) {
@@ -841,7 +841,7 @@ function renderChallengeGame(container) {
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                     ${optProducts.map(p => `
                         <div style="cursor: pointer; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; width: 140px;" onclick="checkChallengeAnswer(${p.id})">
-                            <img src="imagens/${p.image}" style="width: 100%; height: 100px; object-fit: contain; background: #121216; border-radius: 6px;" onerror="this.onerror=null; this.src='https://via.placeholder.com/100/222/fff?text=Joia';">
+                            <img src="${p.image}" style="width: 100%; height: 100px; object-fit: contain; background: #121216; border-radius: 6px;" onerror="this.onerror=null; this.src='https://via.placeholder.com/100/222/fff?text=Joia';">
                             <p style="font-size: 0.8rem; margin-top: 5px;">${p.name}</p>
                         </div>
                     `).join('')}
