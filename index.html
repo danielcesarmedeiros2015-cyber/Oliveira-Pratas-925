@@ -8,42 +8,55 @@
 </head>
 <body>
 
-    <!-- Cabeçalho -->
-    <header>
-        <div class="logo">
-            <h1>Oliveira Pratas 925</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#" onclick="filterProducts('TODOS')">Início</a></li>
-                <li><a href="#" onclick="filterProducts('CORRENTES')">Correntes</a></li>
-                <li><a href="#" onclick="filterProducts('PULSEIRAS MASCULINAS')">Pulseiras</a></li>
-                <li><a href="#" onclick="filterProducts('BRACELETES')">Braceletes</a></li>
-                <li><a href="#" onclick="filterProducts('PIERCINGS')">Piercings</a></li>
-            </ul>
-        </nav>
-        <div class="cart-icon">
-            🛒 <span id="cart-count">0</span>
+    <!-- CABEÇALHO / NAVBAR MODERNA -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="brand-logo">
+                <span class="brand-name">OLIVEIRA PRATAS 925</span>
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="#" onclick="filterProducts('TODOS')">Início</a>
+                <a href="#" onclick="filterProducts('CORRENTES')">Correntes</a>
+                <a href="#" onclick="filterProducts('PULSEIRAS MASCULINAS')">Pulseiras</a>
+                <a href="#" onclick="filterProducts('BRACELETES')">Braceletes</a>
+                <a href="#" onclick="filterProducts('PIERCINGS')">Piercings</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="action-btn" onclick="openCartModal()">
+                    🛒 <span class="badge" id="cart-count">0</span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- Conteúdo Principal -->
+    <!-- CONTEÚDO PRINCIPAL -->
     <main>
-        <section class="banner">
-            <h2>Elegância e Autenticidade em Prata 925</h2>
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Oliveira Pratas 925</h1>
+                <p class="hero-subtitle">Elegância e Autenticidade em Prata 925 legítima.</p>
+            </div>
         </section>
 
-        <section class="catalog">
-            <h2>Nossos Produtos</h2>
-            <div id="product-grid" class="grid-container">
+        <!-- CATÁLOGO DE PRODUTOS -->
+        <section class="container section-padding">
+            <h2 class="section-title">
+                <span>Catálogo</span>
+                Nossos Produtos
+            </h2>
+            
+            <div id="product-grid" class="products-grid">
                 <!-- Os produtos serão injetados dinamicamente via script.js -->
             </div>
         </section>
     </main>
 
-    <!-- Rodapé -->
-    <footer>
-        <p>&copy; 2026 Oliveira Pratas 925. Todos os direitos reservados.</p>
+    <!-- RODAPÉ -->
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Oliveira Pratas 925. Todos os direitos reservados.</p>
+        </div>
     </footer>
 
     <!-- Script Principal -->
