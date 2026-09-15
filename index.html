@@ -3,235 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oliveira Pratas 925 | Joias em Prata Legítima</title>
-    
-    <!-- Google Analytics 4 (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-    </script>
-
+    <title>Oliveira Pratas 925 - Catálogo Exclusivo</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- CABEÇALHO / MENU -->
-    <header class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="brand-logo">
-                <img src="imagens/logo.png" alt="Oliveira Pratas 925 Logo" class="logo-img">
-                <span class="brand-name">Oliveira Pratas 925</span>
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Oliveira Pratas 925 Logo" class="logo-img">
             </a>
-
-            <nav class="nav-links" id="navLinks">
-                <a href="#inicio" onclick="toggleMenu()">Início</a>
-                <a href="#mais-vendidos" onclick="toggleMenu()">Mais Vendidos</a>
-                <a href="#catalogo" onclick="toggleMenu()">Catálogo</a>
-                <a href="#jogos" onclick="toggleMenu()">Jogos</a>
-                <a href="#sobre" onclick="toggleMenu()">Sobre Nós</a>
-                <a href="#confianca" onclick="toggleMenu()">Garantia</a>
+            <nav class="nav-links">
+                <a href="#inicio">Início</a>
+                <a href="#catalogo">Catálogo</a>
+                <a href="#sobre">Sobre Nós</a>
+                <a href="#contato">Contato</a>
             </nav>
-
-            <div class="nav-actions">
-                <a href="https://instagram.com/oliveira.pratas_925" target="_blank" rel="noopener" class="icon-link" title="Instagram" onclick="trackGA4Event('click_instagram')">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <div class="header-icons">
+                <a href="https://wa.me/5511999999999?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações." target="_blank" class="whatsapp-icon" title="Fale conosco no WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
                 </a>
-                <a href="https://wa.me/5564992145149" target="_blank" rel="noopener" class="icon-link" title="WhatsApp" onclick="trackGA4Event('click_whatsapp')">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.572-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                </a>
-                <button class="action-btn" onclick="openFavoritesModal()" title="Favoritos">
-                    ❤️ <span class="badge" id="favCount">0</span>
-                </button>
-                <button class="action-btn cart-btn" onclick="openCartModal()" title="Carrinho">
-                    🛒 <span class="badge" id="cartCount">0</span>
-                </button>
-                <button class="mobile-toggle" onclick="toggleMenu()" aria-label="Abrir Menu">
-                    ☰
-                </button>
             </div>
         </div>
     </header>
 
-    <!-- PÁGINA INICIAL / HERO -->
-    <section id="inicio" class="hero-section">
-        <div class="container hero-container">
-            <div class="hero-logo-wrapper">
-                <img src="imagens/logo.png" alt="Oliveira Pratas 925" class="hero-logo">
-            </div>
-            <h1 class="hero-title">Oliveira Pratas 925</h1>
-            <p class="hero-subtitle">Elegância, sofisticação e o brilho eterno da Prata Legítima. A joia perfeita para eternizar seus melhores momentos.</p>
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <img src="logo.png" alt="Oliveira Pratas 925" class="hero-logo">
+            <h1>Brilhe com Elegância e Autenticidade</h1>
+            <p>Prata 925 legítima com design exclusivo para realçar a sua beleza em todos os momentos.</p>
+            <a href="#catalogo" class="btn-primary">Ver Catálogo</a>
+        </div>
+    </section>
+
+    <!-- Catálogo Section -->
+    <section id="catalogo" class="catalogo-section container">
+        <div class="section-title">
+            <h2>Nosso Catálogo</h2>
+            <p>Escolha a peça perfeita que combina com o seu estilo</p>
+        </div>
+
+        <!-- Filtros de Categoria (Opcional/Futuro) -->
+        <!-- <div class="filtros">
+            <button class="filtro-btn active" data-filter="todos">Todos</button>
+            <button class="filtro-btn" data-filter="aneis">Anéis</button>
+            <button class="filtro-btn" data-filter="colares">Colares</button>
+            <button class="filtro-btn" data-filter="brincos">Brincos</button>
+            <button class="filtro-btn" data-filter="pulseiras">Pulseiras</button>
+        </div> -->
+
+        <div class="produtos-grid">
             
-            <div class="hero-cta">
-                <a href="#catalogo" class="btn btn-primary">Ver Catálogo Completo</a>
-                <a href="https://wa.me/5564992145149" target="_blank" class="btn btn-outline" onclick="trackGA4Event('click_whatsapp_hero')">Atendimento no WhatsApp</a>
+            <!-- Produto 1 -->
+            <div class="produto-card">
+                <div class="produto-img-container">
+                    <img src="anel-solitario.jpg" alt="Anel Solitário Cravejado" class="produto-img">
+                    <span class="tag-lancamento">Destaque</span>
+                </div>
+                <div class="produto-info">
+                    <h3>Anel Solitário Cravejado</h3>
+                    <p class="produto-descricao">Prata 925 com zircônias brilhantes de alta qualidade.</p>
+                    <div class="produto-footer">
+                        <span class="produto-preco">R$ 129,90</span>
+                        <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20comprar%20o%20Anel%20Solitário%20Cravejado." target="_blank" class="btn-comprar">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <div class="hero-badges">
-                <div class="badge-item">✨ Prata Legítima 925 e 950</div>
-                <div class="badge-item">📜 Garantia & Certificado</div>
-                <div class="badge-item">💬 Atendimento Exclusivo</div>
-                <div class="badge-item">🚀 Entrega no Mesmo Dia em Caldas Novas</div>
-                <div class="badge-item">📦 Envio Seguro via Correios</div>
-                <div class="badge-item">🏪 Opção de Retirada Presencial</div>
+            <!-- Produto 2 -->
+            <div class="produto-card">
+                <div class="produto-img-container">
+                    <img src="colar-coracao.jpg" alt="Colar Ponto de Luz Coração" class="produto-img">
+                </div>
+                <div class="produto-info">
+                    <h3>Colar Ponto de Luz Coração</h3>
+                    <p class="produto-descricao">Corrente Veneziana 45cm com pingente em formato de coração.</p>
+                    <div class="produto-footer">
+                        <span class="produto-preco">R$ 149,90</span>
+                        <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20comprar%20o%20Colar%20Ponto%20de%20Luz%20Coração." target="_blank" class="btn-comprar">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produto 3 -->
+            <div class="produto-card">
+                <div class="produto-img-container">
+                    <img src="brinco-argola.jpg" alt="Brinco Argola Cravejada" class="produto-img">
+                </div>
+                <div class="produto-info">
+                    <h3>Brinco Argola Cravejada</h3>
+                    <p class="produto-descricao">Argola articulada em prata 925 com micro zircônias.</p>
+                    <div class="produto-footer">
+                        <span class="produto-preco">R$ 119,90</span>
+                        <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20comprar%20o%20Brinco%20Argola%20Cravejada." target="_blank" class="btn-comprar">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produto 4 -->
+            <div class="produto-card">
+                <div class="produto-img-container">
+                    <img src="pulseira-pandora.jpg" alt="Pulseira Estilo Life/Pandora" class="produto-img">
+                </div>
+                <div class="produto-info">
+                    <h3>Pulseira Estilo Life</h3>
+                    <p class="produto-descricao">Pulseira com fecho trabalhado para colecionar momentos.</p>
+                    <div class="produto-footer">
+                        <span class="produto-preco">R$ 189,90</span>
+                        <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20comprar%20a%20Pulseira%20Estilo%20Life." target="_blank" class="btn-comprar">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produto 5 -->
+            <div class="produto-card">
+                <div class="produto-img-container">
+                    <img src="tornozeleira-coracao.jpg" alt="Tornozeleira Elos de Coração" class="produto-img">
+                </div>
+                <div class="produto-info">
+                    <h3>Tornozeleira Elos de Coração</h3>
+                    <p class="produto-descricao">Tornozeleira delicada com corações vazados intercalados.</p>
+                    <div class="produto-footer">
+                        <span class="produto-preco">R$ 89,90</span>
+                        <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20comprar%20a%20Tornozeleira%20Elos%20de%20Coração." target="_blank" class="btn-comprar">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produto 6 -->
+            <div class="produto-card">
+                <div class="produto-img-container">
+                    <img src="escapulario-prata.jpg" alt="Escapulário Sagrado Coração" class="produto-img">
+                </div>
+                <div class="produto-info">
+                    <h3>Escapulário Sagrado Coração</h3>
+                    <p class="produto-descricao">Escapulário unissex em prata 925 com acabamento premium.</p>
+                    <div class="produto-footer">
+                        <span class="produto-preco">R$ 169,90</span>
+                        <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20comprar%20o%20Escapulário%20Sagrado%20Coração." target="_blank" class="btn-comprar">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sobre Section -->
+    <section id="sobre" class="sobre-section">
+        <div class="container sobre-grid">
+            <div class="sobre-texto">
+                <h2>Sobre a Oliveira Pratas 925</h2>
+                <p>Nossa missão é oferecer joias em prata 925 legítima que unem sofisticação, durabilidade e beleza. Cada peça do nosso catálogo é cuidadosamente selecionada para garantir o máximo de brilho e qualidade para você se sentir única todos os dias.</p>
+                <div class="sobre-features">
+                    <div class="feature-item">
+                        <i class="fas fa-gem"></i>
+                        <span>Prata 925 Legítima</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Garantia Eterna no Metal</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-box-open"></i>
+                        <span>Envio Seguro</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sobre-img-container">
+                <img src="sobre-loja.jpg" alt="Joias Oliveira Pratas" class="sobre-img">
             </div>
         </div>
     </section>
 
-    <!-- MAIS VENDIDOS -->
-    <section id="mais-vendidos" class="section-padding dark-bg">
-        <div class="container">
-            <h2 class="section-title"><span>Destaques</span>Mais Vendidos</h2>
-            <div class="products-grid" id="bestSellersGrid">
-                <!-- Preenchido via JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- CATÁLOGO COMPLETO -->
-    <section id="catalogo" class="section-padding">
-        <div class="container">
-            <h2 class="section-title"><span>Nossa Coleção</span>Catálogo de Joias</h2>
-            
-            <!-- BUSCA E FILTROS -->
-            <div class="catalog-controls">
-                <div class="search-box">
-                    <span class="search-icon">🔎</span>
-                    <input type="text" id="searchInput" placeholder="Buscar por nome da peça..." oninput="filterCatalog()">
-                </div>
-                
-                <div class="categories-filter" id="categoriesContainer">
-                    <!-- Categorias inseridas via JS -->
-                </div>
-            </div>
-
-            <!-- GRID DO CATÁLOGO -->
-            <div class="products-grid" id="catalogGrid">
-                <!-- Produtos renderizados via JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- SEÇÃO DE JOGOS -->
-    <section id="jogos" class="section-padding dark-bg">
-        <div class="container text-center">
-            <h2 class="section-title"><span>Interativo</span>🎁 JOGUE E CONQUISTE SEU BENEFÍCIO!</h2>
-            <p class="games-description">
-                Prepare-se para se divertir, testar seus conhecimentos e mostrar que entende de prata! ✨<br>
-                Ao participar, você terá a oportunidade de conquistar um benefício especial da Oliveira Pratas 925. 🍀
-            </p>
-            <p class="games-notice">
-                * Benefício válido para produtos participantes. <strong>Alianças não participam da promoção.</strong>
-            </p>
-
-            <div class="games-grid">
-                <div class="game-card" onclick="openGame('memory')">
-                    <div class="game-icon">💎</div>
-                    <h3>Jogo da Memória</h3>
-                    <p>Encontre os pares usando fotos reais das nossas joias.</p>
-                    <button class="btn btn-primary">Jogar Agora</button>
-                </div>
-
-                <div class="game-card" onclick="openGame('quiz')">
-                    <div class="game-icon">❓</div>
-                    <h3>925 — Quiz de Prata 925</h3>
-                    <p>Teste seus conhecimentos sobre prata e joias.</p>
-                    <button class="btn btn-primary">Jogar Agora</button>
-                </div>
-
-                <div class="game-card" onclick="openGame('wordsearch')">
-                    <div class="game-icon">🔎</div>
-                    <h3>Caça-palavras</h3>
-                    <p>Encontre oito palavras escondidas em todas as direções.</p>
-                    <button class="btn btn-primary">Jogar Agora</button>
-                </div>
-
-                <div class="game-card" onclick="openGame('challenge')">
-                    <div class="game-icon">🥈</div>
-                    <h3>Desafio da Prata</h3>
-                    <p>Responda perguntas e reconheça peças reais do nosso catálogo.</p>
-                    <button class="btn btn-primary">Jogar Agora</button>
-                </div>
-
-                <div class="game-card highlight-card" onclick="openGame('roulette')">
-                    <div class="game-icon">🎡</div>
-                    <h3>Roleta de Descontos</h3>
-                    <p>Gire a roleta e conquiste seu benefício exclusivo!</p>
-                    <button class="btn btn-silver">Girar Roleta</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SOBRE NÓS -->
-    <section id="sobre" class="section-padding">
-        <div class="container">
-            <div class="about-content">
-                <h2 class="section-title text-left"><span>Nossa História</span>Sobre a Oliveira Pratas 925</h2>
-                <p>A <strong>Oliveira Pratas 925</strong> nasceu com o propósito de oferecer joias em prata legítima de alta qualidade, aliando sofisticação, durabilidade e design exclusivo. Cada peça do nosso catálogo é selecionada cuidadosamente para entregar o máximo em brilho e elegância.</p>
-                <p>Trabalhamos exclusivamente com Prata 925 e 950 legítimas, garantindo peças resistentes e autênticas para marcar momentos inesquecíveis, seja no compromisso, no presente de alguém especial ou no uso diário.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONFIANÇA & GARANTIA -->
-    <section id="confianca" class="section-padding dark-bg">
-        <div class="container">
-            <h2 class="section-title"><span>Sua Segurança</span>Por Que Escolher a Oliveira Pratas?</h2>
-            <div class="trust-grid">
-                <div class="trust-card">
-                    <div class="trust-icon">✨</div>
-                    <h3>Prata Legítima</h3>
-                    <p>Garantia de autenticidade no teor da prata (925 e 950).</p>
-                </div>
-                <div class="trust-card">
-                    <div class="trust-icon">📜</div>
-                    <h3>Garantia & Certificado</h3>
-                    <p>Acompanha certificado de garantia da prata legítima.</p>
-                </div>
-                <div class="trust-card">
-                    <div class="trust-icon">💬</div>
-                    <h3>Atendimento WhatsApp</h3>
-                    <p>Suporte direto, rápido e humanizado para tirar todas as dúvidas.</p>
-                </div>
-                <div class="trust-card">
-                    <div class="trust-icon">🛵</div>
-                    <h3>Entrega Caldas Novas</h3>
-                    <p>Entrega rápida no mesmo dia para pedidos em Caldas Novas.</p>
-                </div>
-                <div class="trust-card">
-                    <div class="trust-icon">📦</div>
-                    <h3>Envio Correios</h3>
-                    <p>Enviamos com total segurança e código de rastreio para todo o Brasil.</p>
-                </div>
-                <div class="trust-card">
-                    <div class="trust-icon">🏪</div>
-                    <h3>Retirada Presencial</h3>
-                    <p>Possibilidade de retirada presencial mediante agendamento prévio.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- RODAPÉ -->
-    <footer class="footer">
-        <div class="container footer-container">
-            <div class="footer-info">
+    <!-- Contato / Footer -->
+    <footer id="contato" class="footer">
+        <div class="container footer-content">
+            <div class="footer-col">
                 <h3>Oliveira Pratas 925</h3>
-                <p>Especialistas em joias em Prata Legítima 925 e 950.</p>
-                <p class="footer-notice">* Alianças não participam das promoções de benefícios da roleta.</p>
+                <p>Sua loja de joias exclusivas em prata legítima.</p>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/5511999999999" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
             </div>
-            <div class="footer-links">
-                <h4>Redes & Contato</h4>
-                <a href="https://instagram.com/oliveira.pratas_925" target="_blank" rel="noopener">Instagram: @oliveira.pratas_925</a>
-                <a href="https://wa.me/5564992145149" target="_blank" rel="noopener">WhatsApp: (64) 99214-5149</a>
+            <div class="footer-col">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
             </div>
-            <div class="footer-payments">
-                <h4>Formas de Entrega & Pagamento</h4>
-                <p>Entrega em Caldas Novas | Correios | Retirada Presencial</p>
-                <p>Pix | Dinheiro | Cartão de Crédito (até 10x) | Cartão de Débito</p>
+            <div class="footer-col">
+                <h3>Atendimento</h3>
+                <p><i class="fab fa-whatsapp"></i> (11) 99999-9999</p>
+                <p><i class="fas fa-envelope"></i> contato@oliveirapratas925.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> São Paulo - SP</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -239,116 +230,5 @@
         </div>
     </footer>
 
-    <!-- BOTÃO FLUTUANTE WHATSAPP -->
-    <a href="https://wa.me/5564992145149" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp" onclick="trackGA4Event('click_whatsapp_float')">
-        <svg viewBox="0 0 24 24" width="32" height="32" fill="#fff"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.572-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-    </a>
-
-    <!-- MODAL DO CARRINHO E CHECKOUT -->
-    <div class="modal" id="cartModal">
-        <div class="modal-content modal-lg">
-            <button class="modal-close" onclick="closeCartModal()">✕</button>
-            <h2>🛒 Seu Carrinho</h2>
-            
-            <div id="cartItemsContainer">
-                <!-- Itens do carrinho -->
-            </div>
-
-            <div class="cart-summary" id="cartSummary">
-                <!-- Resumo de totais -->
-            </div>
-
-            <!-- OPÇÕES DE CHECKOUT -->
-            <div class="checkout-section" id="checkoutSection">
-                <h3>Forma de Entrega</h3>
-                <div class="form-group">
-                    <label class="radio-label">
-                        <input type="radio" name="deliveryOption" value="caldas" checked onchange="toggleDeliveryFields()">
-                        Entrega em Caldas Novas (Grátis - No mesmo dia)
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="deliveryOption" value="correios" onchange="toggleDeliveryFields()">
-                        Envio via Correios (Frete a consultar via WhatsApp)
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="deliveryOption" value="retirada" onchange="toggleDeliveryFields()">
-                        Retirada Presencial (Combinar via WhatsApp)
-                    </label>
-                </div>
-
-                <div id="addressFields" class="address-fields hidden">
-                    <h4>Endereço de Entrega / Envio</h4>
-                    <div class="form-row" id="caldasFields">
-                        <input type="text" id="custLocation" placeholder="Endereço / Localização / Bairro em Caldas Novas">
-                    </div>
-                    <div class="form-row hidden" id="correiosFields">
-                        <input type="text" id="custCep" placeholder="CEP">
-                        <input type="text" id="custStreet" placeholder="Rua / Avenida">
-                        <input type="text" id="custNumber" placeholder="Número">
-                        <input type="text" id="custQuadra" placeholder="Quadra (se houver)">
-                        <input type="text" id="custLote" placeholder="Lote (se houver)">
-                    </div>
-                </div>
-
-                <h3>Forma de Pagamento</h3>
-                <div class="form-group">
-                    <select id="paymentMethod" onchange="updatePaymentDetails()">
-                        <option value="pix">Pix (sem acréscimo)</option>
-                        <option value="dinheiro">Dinheiro (sem acréscimo)</option>
-                        <option value="debito">Cartão de Débito (sem acréscimo)</option>
-                        <option value="credito">Cartão de Crédito (com taxa da maquininha)</option>
-                    </select>
-                </div>
-
-                <div id="installmentsWrapper" class="form-group hidden">
-                    <label for="installmentsSelect">Número de Parcelas:</label>
-                    <select id="installmentsSelect" onchange="calculateCartTotals()">
-                        <option value="1">1x (Taxa 3,09%)</option>
-                        <option value="2">2x (Taxa 3,04%)</option>
-                        <option value="3">3x (Taxa 3,34%)</option>
-                        <option value="4">4x (Taxa 5,24%)</option>
-                        <option value="5">5x (Taxa 5,34%)</option>
-                        <option value="6">6x (Taxa 5,44%)</option>
-                        <option value="7">7x (Taxa 6,59%)</option>
-                        <option value="8">8x (Taxa 6,78%)</option>
-                        <option value="9">9x (Taxa 7,47%)</option>
-                        <option value="10">10x (Taxa 8,15%)</option>
-                    </select>
-                </div>
-
-                <div class="checkout-actions">
-                    <button class="btn btn-outline" onclick="closeCartModal()">Continuar Comprando</button>
-                    <button class="btn btn-danger" onclick="clearCart()">Limpar Carrinho</button>
-                    <button class="btn btn-primary btn-block" onclick="finalizeWhatsAppOrder()">Finalizar Pedido pelo WhatsApp 📲</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL DE FAVORITOS -->
-    <div class="modal" id="favModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeFavoritesModal()">✕</button>
-            <h2>❤️ Meus Favoritos</h2>
-            <div id="favItemsContainer" class="fav-items-list">
-                <!-- Itens favoritos (Brinco inexistente removido daqui) -->
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL DOS JOGOS -->
-    <div class="modal" id="gameModal">
-        <div class="modal-content modal-lg">
-            <button class="modal-close" onclick="closeGameModal()">✕</button>
-            <div id="gameContainer">
-                <!-- Conteúdo dinâmico do jogo -->
-            </div>
-        </div>
-    </div>
-
-    <!-- OVERLAY DE CONFETES PARA ROLETA -->
-    <div id="confettiContainer" class="confetti-container"></div>
-
-    <script src="script.js"></script>
 </body>
 </html>
