@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SCRIPT OLIVEIRA PRATAS 925 - ATUALIZADO (IMAGEM CORRIGIDA + ZOOM)
+   SCRIPT OLIVEIRA PRATAS 925 - ATUALIZADO (IMAGEM CORRIGIDA + ZOOM + MENU)
    ========================================================================== */
 
 // BASE DE DADOS OFICIAL DE PRODUTOS
@@ -190,10 +190,12 @@ document.addEventListener('DOMContentLoaded', () => {
     injectImageModalHTML();
 });
 
-// MENU MOBILE
+// MENU MOBILE (Alterna a classe 'active' para abrir/fechar o menu)
 function toggleMenu() {
     const navLinks = document.getElementById('navLinks');
-    navLinks.classList.toggle('active');
+    if (navLinks) {
+        navLinks.classList.toggle('active');
+    }
 }
 
 // RENDERIZAR CATEGORIAS
@@ -870,9 +872,8 @@ function renderChallengeGame(container) {
 function renderRouletteGame(container) {
     const lastSpinTimestamp = localStorage.getItem('op_last_spin_time');
     const now = Date.now();
-    const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000; // 24 horas em milissegundos
+    const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
 
-    // Verifica se já se passaram 24h desde o último giro
     if (lastSpinTimestamp && (now - parseInt(lastSpinTimestamp, 10)) < TWENTY_FOUR_HOURS) {
         const remainingTime = TWENTY_FOUR_HOURS - (now - parseInt(lastSpinTimestamp, 10));
         const hoursLeft = Math.floor(remainingTime / (1000 * 60 * 60));
@@ -896,7 +897,6 @@ function renderRouletteGame(container) {
         return;
     }
 
-    // Se passou das 24h, limpa o desconto antigo para ele conquistar um novo
     if (lastSpinTimestamp && (now - parseInt(lastSpinTimestamp, 10)) >= TWENTY_FOUR_HOURS) {
         localStorage.removeItem('op_benefit_percent');
         localStorage.removeItem('op_last_spin_time');
@@ -992,7 +992,6 @@ function finishRoulette(percent) {
     trackGA4Event('conclusao_roleta', { percent });
     triggerConfetti();
 
-    // Salva o momento em que o usuário girou a roleta
     localStorage.setItem('op_last_spin_time', Date.now().toString());
 
     const resDiv = document.getElementById('rouletteResult');
