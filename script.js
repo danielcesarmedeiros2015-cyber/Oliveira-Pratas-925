@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SCRIPT OLIVEIRA PRATAS 925 - ATUALIZADO (IMAGEM + VÍDEO + LIMPA PRATAS)
+   SCRIPT OLIVEIRA PRATAS 925 - ATUALIZADO (QUIZ 5 PERGUNTAS + DESAFIO 5 QUESTÕES)
    ========================================================================== */
 
 // BASE DE DADOS OFICIAL DE PRODUTOS
@@ -613,13 +613,12 @@ function closeGameModal() {
     document.getElementById('gameModal').classList.remove('active');
 }
 
-function finishMinigame(gameName, resultText = '') {
+function finishMinigame(gameName) {
     trackGA4Event('conclusao_jogo', { game: gameName });
     const container = document.getElementById('gameContainer');
     container.innerHTML = `
         <div class="game-box">
             <h2>🎉 Parabéns! Você concluiu o ${gameName}!</h2>
-            ${resultText ? `<p style="margin: 15px 0; font-size: 1.1rem; color: var(--primary-color); font-weight: bold;">${resultText}</p>` : ''}
             <p style="margin: 20px 0; color: var(--text-secondary);">Agora você foi liberado para girar a Roleta de Descontos e conquistar seu benefício exclusivo!</p>
             <button class="btn btn-silver" onclick="renderRouletteGame(document.getElementById('gameContainer'))">Ir para a Roleta de Descontos 🎡</button>
         </div>
@@ -679,7 +678,7 @@ function renderMemoryGame(container) {
     });
 }
 
-// JOGO 2: QUIZ (5 PERGUNTAS COM CONTAGEM DE ACERTOS E ERROS)
+// JOGO 2: QUIZ (5 PERGUNTAS SORTEADAS + PLACAR FINAL COM MENSAGEM)
 function renderQuizGame(container) {
     const allQuestions = [
         { q: "Qual o teor de prata pura na Prata 925?", options: ["92,5%", "50%", "100%", "75%"], correct: 0 },
@@ -692,7 +691,7 @@ function renderQuizGame(container) {
         { q: "O que a Zircônia representa nas joias em Prata 925?", options: ["Uma gema sintética de alto brilho que imita o diamante", "Um tipo de vidro comum", "Uma tinta prateada", "Um plástico rígido"], correct: 0 }
     ];
 
-    // Sorteia 5 perguntas para a partida
+    // Sorteia exatamente 5 perguntas por partida
     const selectedQuestions = [...allQuestions].sort(() => Math.random() - 0.5).slice(0, 5);
     
     // Embaralha as opções de cada pergunta sorteada
@@ -703,8 +702,8 @@ function renderQuizGame(container) {
     });
 
     let qIndex = 0;
-    let correctCount = 0;
-    let wrongCount = 0;
+    let scoreHits = 0;
+    let scoreErrors = 0;
 
     function showQuestion() {
         const q = selectedQuestions[qIndex];
@@ -723,19 +722,41 @@ function renderQuizGame(container) {
 
     window.checkQuizAnswer = (ans) => {
         if (ans === selectedQuestions[qIndex].correct) {
-            correctCount++;
+            scoreHits++;
         } else {
-            wrongCount++;
-            alert('Resposta incorreta!');
+            scoreErrors++;
         }
 
         qIndex++;
         if (qIndex < selectedQuestions.length) {
             showQuestion();
         } else {
-            finishMinigame('Quiz de Prata 925', `Você acertou ${correctCount} alternativa(s) e errou ${wrongCount}!`);
+            showQuizResults();
         }
     };
+
+    function showQuizResults() {
+        let resultMsg = "";
+        if (scoreHits === 5) {
+            resultMsg = "Excelente! Desempenho perfeito!";
+        } else if (scoreHits >= 3) {
+            resultMsg = "Muito bem! Excelente conhecimento!";
+        } else {
+            resultMsg = "Bom resultado! Continue praticando!";
+        }
+
+        container.innerHTML = `
+            <div class="game-box">
+                <h2>📊 Placar Final - Quiz de Prata</h2>
+                <p style="font-size: 1.2rem; margin: 15px 0; color: #25d366;">${resultMsg}</p>
+                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <p style="margin-bottom: 8px;">✅ <strong>Acertos:</strong> ${scoreHits}</p>
+                    <p>❌ <strong>Erros:</strong> ${scoreErrors}</p>
+                </div>
+                <button class="btn btn-silver" onclick="finishMinigame('Quiz de Prata 925')">Avançar para a Roleta 🎡</button>
+            </div>
+        `;
+    }
 
     showQuestion();
 }
@@ -894,7 +915,7 @@ function renderWordSearchGame(container) {
     };
 }
 
-// JOGO 4: DESAFIO DA PRATA (5 QUESTÕES E SEM NOME DO PRODUTO EMBAIXO DA IMAGEM)
+// JOGO 4: DESAFIO DA PRATA (5 QUESTÕES + SEM TÍTULO/NOME DOS PRODUTOS NAS IMAGENS + PLACAR)
 function renderChallengeGame(container) {
     const allChallenges = [
         { q: "Qual destas peças é uma Corrente Grumet?", targetId: 76, options: [76, 24, 130] },
@@ -902,15 +923,21 @@ function renderChallengeGame(container) {
         { q: "Qual destas peças é um Anel Solitário?", targetId: 24, options: [24, 76, 90] },
         { q: "Qual destas peças é um Pingente Cruz Palito?", targetId: 90, options: [111, 90, 120] },
         { q: "Qual destas peças é uma Pulseira Coração Vermelho?", targetId: 117, options: [117, 132, 2] },
-        { q: "Qual destas peças é um Piercing de Nariz?", targetId: 132, options: [130, 132, 74] }
+        { q: "Qual destas peças é um Piercing de Nariz?", targetId: 132, options: [130, 132, 74] },
+        { q: "Qual destas peças é um Anel Coroa?", targetId: 22, options: [22, 29, 35] },
+        { q: "Qual destas peças é uma Choker de Corações Verde?", targetId: 52, options: [52, 64, 70] }
     ];
 
-    // Sorteia 5 desafios para a partida
+    // Sorteia exatamente 5 questões por partida
     const selectedChallenges = [...allChallenges].sort(() => Math.random() - 0.5).slice(0, 5);
 
     let step = 0;
+    let scoreHits = 0;
+    let scoreErrors = 0;
+    let attemptedCurrentStep = false;
 
     function showChallenge() {
+        attemptedCurrentStep = false;
         const current = selectedChallenges[step];
         const shuffledOptions = [...current.options].sort(() => Math.random() - 0.5);
         const optProducts = shuffledOptions.map(id => PRODUCTS.find(p => p.id === id));
@@ -918,10 +945,10 @@ function renderChallengeGame(container) {
         container.innerHTML = `
             <div class="game-box">
                 <h2>🥈 Desafio da Prata</h2>
-                <p style="margin-bottom: 20px;">Questão ${step + 1} de ${selectedChallenges.length}: ${current.q}</p>
+                <p style="margin-bottom: 20px;">Questão ${step + 1} de ${selectedChallenges.length}: <strong>${current.q}</strong></p>
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                     ${optProducts.map(p => `
-                        <div style="cursor: pointer; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; width: 140px; display: flex; align-items: center; justify-content: center;" onclick="checkChallengeAnswer(${p.id})">
+                        <div style="cursor: pointer; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; width: 130px; transition: transform 0.2s;" onclick="checkChallengeAnswer(${p.id})">
                             <img src="${p.image}" style="width: 100%; height: 110px; object-fit: contain; background: #121216; border-radius: 6px;" onerror="this.onerror=null; this.src='https://via.placeholder.com/100/222/fff?text=Joia';">
                         </div>
                     `).join('')}
@@ -932,16 +959,46 @@ function renderChallengeGame(container) {
 
     window.checkChallengeAnswer = (selectedId) => {
         if (selectedId === selectedChallenges[step].targetId) {
+            if (!attemptedCurrentStep) {
+                scoreHits++;
+            }
             step++;
             if (step < selectedChallenges.length) {
                 showChallenge();
             } else {
-                finishMinigame('Desafio da Prata');
+                showChallengeResults();
             }
         } else {
+            if (!attemptedCurrentStep) {
+                scoreErrors++;
+                attemptedCurrentStep = true;
+            }
             alert('Ops! Essa não é a peça correta. Tente novamente!');
         }
     };
+
+    function showChallengeResults() {
+        let resultMsg = "";
+        if (scoreHits === 5) {
+            resultMsg = "Incrível! Você é um verdadeiro perito em joias!";
+        } else if (scoreHits >= 3) {
+            resultMsg = "Ótimo olho! Excelente resultado!";
+        } else {
+            resultMsg = "Bom trabalho! Continue conhecendo nossas peças!";
+        }
+
+        container.innerHTML = `
+            <div class="game-box">
+                <h2>📊 Placar Final - Desafio da Prata</h2>
+                <p style="font-size: 1.2rem; margin: 15px 0; color: #25d366;">${resultMsg}</p>
+                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <p style="margin-bottom: 8px;">✅ <strong>Acertos de primeira:</strong> ${scoreHits}</p>
+                    <p>❌ <strong>Erros cometidos:</strong> ${scoreErrors}</p>
+                </div>
+                <button class="btn btn-silver" onclick="finishMinigame('Desafio da Prata')">Avançar para a Roleta 🎡</button>
+            </div>
+        `;
+    }
 
     showChallenge();
 }
@@ -1049,6 +1106,7 @@ function spinRoulette() {
     const extraRounds = 5 * 2 * Math.PI;
     const totalRotation = extraRounds + targetAngle;
 
+    let currentRotation = 0;
     const duration = 4000;
     const startTime = performance.now();
 
