@@ -808,11 +808,25 @@ button {
     z-index: 10;
 }
 
-/* EMBED INSTAGRAM RESPONSIVO */
-.instagram-embed-wrapper {
+/* VÍDEO DIRETO E CARD DESTACADO */
+.video-container {
     display: flex;
     justify-content: center;
     width: 100%;
+    max-width: 380px;
+    margin: 0 auto 30px auto;
+}
+
+.custom-video {
+    width: 100%;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background-color: #000;
+}
+
+.highlight-product-container {
+    max-width: 280px;
     margin: 0 auto;
 }
 
