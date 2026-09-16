@@ -189,11 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLimpaPratasCard();
     updateBadges();
     injectImageModalHTML();
-
-    // PROCESSAR WIDGETS DO INSTAGRAM SE DISPONÍVEIS
-    if (window.instgrm) {
-        window.instgrm.Embeds.process();
-    }
 });
 
 // MENU MOBILE
@@ -204,7 +199,7 @@ function toggleMenu() {
     }
 }
 
-// RENDERIZAR CARD DO LIMPA PRATAS LOGO ABAIXO DO VÍDEO DO INSTAGRAM
+// RENDERIZAR CARD DO LIMPA PRATAS LOGO ABAIXO DO VÍDEO
 function renderLimpaPratasCard() {
     const container = document.getElementById('limpaPratasCardContainer');
     if (!container) return;
