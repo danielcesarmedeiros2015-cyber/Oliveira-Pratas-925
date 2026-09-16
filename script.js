@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SCRIPT OLIVEIRA PRATAS 925 - ATUALIZADO (IMAGEM CORRIGIDA + ZOOM + MENU)
+   SCRIPT OLIVEIRA PRATAS 925 - ATUALIZADO (IMAGEM + VÍDEO + LIMPA PRATAS)
    ========================================================================== */
 
 // BASE DE DADOS OFICIAL DE PRODUTOS
@@ -186,15 +186,32 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCategories();
     renderCatalog();
     renderBestSellers();
+    renderLimpaPratasCard();
     updateBadges();
     injectImageModalHTML();
+
+    // PROCESSAR WIDGETS DO INSTAGRAM SE DISPONÍVEIS
+    if (window.instgrm) {
+        window.instgrm.Embeds.process();
+    }
 });
 
-// MENU MOBILE (Alterna a classe 'active' para abrir/fechar o menu)
+// MENU MOBILE
 function toggleMenu() {
     const navLinks = document.getElementById('navLinks');
     if (navLinks) {
         navLinks.classList.toggle('active');
+    }
+}
+
+// RENDERIZAR CARD DO LIMPA PRATAS LOGO ABAIXO DO VÍDEO DO INSTAGRAM
+function renderLimpaPratasCard() {
+    const container = document.getElementById('limpaPratasCardContainer');
+    if (!container) return;
+
+    const limpaPratasProduct = PRODUCTS.find(p => p.id === 130);
+    if (limpaPratasProduct) {
+        container.innerHTML = createProductCardHTML(limpaPratasProduct);
     }
 }
 
@@ -311,6 +328,7 @@ function toggleFavorite(id) {
     updateBadges();
     renderCatalog();
     renderBestSellers();
+    renderLimpaPratasCard();
     if (document.getElementById('favModal').classList.contains('active')) {
         renderFavoritesModal();
     }
@@ -547,7 +565,7 @@ function finalizeWhatsAppOrder() {
     message += `*FORMA DE PAGAMENTO:* `;
     if (paymentMethod === 'pix') message += `Pix\n`;
     if (paymentMethod === 'dinheiro') message += `Dinheiro\n`;
-    if (paymentMethod === 'debito') message += `Cartão de Débito\n`;
+    if (paymentMethod === 'debito') message += `Cartão de Crédito/Débito\n`;
     if (paymentMethod === 'credito') {
         const installments = parseInt(document.getElementById('installmentsSelect').value);
         const rate = CREDIT_RATES[installments] || 0;
@@ -866,9 +884,7 @@ function renderChallengeGame(container) {
     showChallenge();
 }
 
-// ==========================================================================
-// JOGO 5: ROLETA DE DESCONTOS (SISTEMA COM TRAVA DE 24 HORAS)
-// ==========================================================================
+// JOGO 5: ROLETA DE DESCONTOS
 function renderRouletteGame(container) {
     const lastSpinTimestamp = localStorage.getItem('op_last_spin_time');
     const now = Date.now();
@@ -913,18 +929,25 @@ function renderRouletteGame(container) {
                 <div class="roulette-pointer"></div>
                 <canvas id="rouletteCanvas" width="300" height="300"></canvas>
             </div>
-            <button class="btn btn-silver" id="spinBtn" onclick="spinRoulette()">GIRAR ROLETA 🍀</button>
-            <div id="rouletteResult" style="margin-top: 20px;"></div>
+            <button id="spinBtn" class="btn btn-silver" onclick="spinRoulette()">Girar Agora!</button>
         </div>
     `;
 
-    setTimeout(drawRouletteWheel, 50);
+    setTimeout(drawRoulette, 50);
 }
 
-const slices = ["1%", "2%", "3%", "4%", "5%", "6%", "7%", "8%", "9%", "10%"];
+const slices = [
+    { label: "5% OFF", value: 5, color: "#d4af37" },
+    { label: "7% OFF", value: 7, color: "#1a1a22" },
+    { label: "10% OFF", value: 10, color: "#e0e0e0" },
+    { label: "5% OFF", value: 5, color: "#2a2a35" },
+    { label: "7% OFF", value: 7, color: "#d4af37" },
+    { label: "10% OFF", value: 10, color: "#1a1a22" }
+];
+
 let startAngle = 0;
 
-function drawRouletteWheel() {
+function drawRoulette() {
     const canvas = document.getElementById('rouletteCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -936,34 +959,33 @@ function drawRouletteWheel() {
     for (let i = 0; i < numSlices; i++) {
         const angle = startAngle + i * sliceAngle;
         ctx.beginPath();
-        ctx.fillStyle = i % 2 === 0 ? '#1f1f28' : '#2a2a35';
+        ctx.fillStyle = slices[i].color;
         ctx.moveTo(150, 150);
         ctx.arc(150, 150, 140, angle, angle + sliceAngle);
         ctx.lineTo(150, 150);
         ctx.fill();
-        ctx.strokeStyle = '#444455';
-        ctx.stroke();
 
         ctx.save();
-        ctx.translate(150 + Math.cos(angle + sliceAngle / 2) * 100, 150 + Math.sin(angle + sliceAngle / 2) * 100);
-        ctx.rotate(angle + sliceAngle / 2 + Math.PI / 2);
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 14px Segoe UI';
-        ctx.fillText(slices[i], -10, 0);
+        ctx.translate(150, 150);
+        ctx.rotate(angle + sliceAngle / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = slices[i].color === "#e0e0e0" ? "#000000" : "#ffffff";
+        ctx.font = "bold 14px Segoe UI";
+        ctx.fillText(slices[i].label, 120, 5);
         ctx.restore();
     }
 }
 
 function spinRoulette() {
-    const spinBtn = document.getElementById('spinBtn');
-    spinBtn.disabled = true;
+    const btn = document.getElementById('spinBtn');
+    if (btn) btn.disabled = true;
 
-    const numSlices = slices.length;
-    const winningIndex = Math.floor(Math.random() * numSlices);
-    const sliceAngle = (2 * Math.PI) / numSlices;
+    const winnerIndex = Math.floor(Math.random() * slices.length);
+    const sliceAngle = (2 * Math.PI) / slices.length;
 
-    const targetAngle = (3 * Math.PI / 2) - (winningIndex * sliceAngle) - (sliceAngle / 2);
-    const totalRotation = (10 * 2 * Math.PI) + (targetAngle - (startAngle % (2 * Math.PI)));
+    const targetAngle = (3 * Math.PI / 2) - (winnerIndex * sliceAngle) - (sliceAngle / 2);
+    const extraRounds = 5 * 2 * Math.PI;
+    const totalRotation = extraRounds + targetAngle;
 
     let currentRotation = 0;
     const duration = 4000;
@@ -971,72 +993,36 @@ function spinRoulette() {
 
     function animate(currentTime) {
         const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-
-        startAngle = currentRotation + easeOut * totalRotation;
-        drawRouletteWheel();
-
-        if (progress < 1) {
+        if (elapsed < duration) {
+            const progress = elapsed / duration;
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            startAngle = easeOut * totalRotation;
+            drawRoulette();
             requestAnimationFrame(animate);
         } else {
-            const wonPercent = parseInt(slices[winningIndex]);
-            finishRoulette(wonPercent);
+            startAngle = totalRotation;
+            drawRoulette();
+            
+            const wonSlice = slices[winnerIndex];
+            localStorage.setItem('op_benefit_percent', wonSlice.value);
+            localStorage.setItem('op_last_spin_time', Date.now());
+            calculateCartTotals();
+
+            trackGA4Event('ganhou_roleta', { discount: wonSlice.value });
+
+            setTimeout(() => {
+                const container = document.getElementById('gameContainer');
+                container.innerHTML = `
+                    <div class="game-box">
+                        <h2>🎉 Parabéns!</h2>
+                        <p style="font-size: 1.2rem; margin: 15px 0;">Você ganhou <strong>${wonSlice.value}% DE DESCONTO</strong> no seu carrinho!</p>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">O desconto já foi aplicado automaticamente para os produtos elegíveis.</p>
+                        <button class="btn btn-primary" onclick="closeGameModal(); openCartModal();">Ver Meu Carrinho 🛒</button>
+                    </div>
+                `;
+            }, 500);
         }
     }
 
     requestAnimationFrame(animate);
-}
-
-function finishRoulette(percent) {
-    trackGA4Event('conclusao_roleta', { percent });
-    triggerConfetti();
-
-    localStorage.setItem('op_last_spin_time', Date.now().toString());
-
-    const resDiv = document.getElementById('rouletteResult');
-    resDiv.innerHTML = `
-        <h3 style="color: #25d366; font-size: 1.5rem;">🎊 PARABÉNS! VOCÊ GANHOU ${percent}% DE DESCONTO! 🎊</h3>
-        <p style="margin: 10px 0; color: var(--text-secondary);">Seu benefício foi gerado e pode ser aplicado direto na sua compra!</p>
-        <button class="btn btn-primary" onclick="claimBenefit(${percent})">🎁 REIVINDICAR MEU PRÊMIO</button>
-    `;
-    document.getElementById('spinBtn').style.display = 'none';
-}
-
-function claimBenefit(percent) {
-    trackGA4Event('reivindicacao_beneficio', { percent });
-    localStorage.setItem('op_benefit_percent', percent);
-    closeGameModal();
-    openCartModal();
-}
-
-// EFEITO DE CONFETES
-function triggerConfetti() {
-    const container = document.getElementById('confettiContainer');
-    container.innerHTML = '';
-    const colors = ['#f59e0b', '#ef4444', '#10b981', '#3b82f6', '#ec4899', '#ffffff'];
-
-    for (let i = 0; i < 80; i++) {
-        const conf = document.createElement('div');
-        conf.style.position = 'absolute';
-        conf.style.width = '10px';
-        conf.style.height = '10px';
-        conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        conf.style.left = Math.random() * 100 + 'vw';
-        conf.style.top = '-10px';
-        conf.style.opacity = Math.random();
-        conf.site_transform = `rotate(${Math.random() * 360}deg)`;
-
-        const duration = 2 + Math.random() * 3;
-        conf.style.transition = `top ${duration}s linear, opacity ${duration}s ease-out`;
-
-        container.appendChild(conf);
-
-        setTimeout(() => {
-            conf.style.top = '100vh';
-            conf.style.opacity = '0';
-        }, 50);
-    }
-
-    setTimeout(() => { container.innerHTML = ''; }, 5000);
 }
