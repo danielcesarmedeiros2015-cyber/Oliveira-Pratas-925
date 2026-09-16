@@ -613,12 +613,13 @@ function closeGameModal() {
     document.getElementById('gameModal').classList.remove('active');
 }
 
-function finishMinigame(gameName) {
+function finishMinigame(gameName, resultText = '') {
     trackGA4Event('conclusao_jogo', { game: gameName });
     const container = document.getElementById('gameContainer');
     container.innerHTML = `
         <div class="game-box">
             <h2>🎉 Parabéns! Você concluiu o ${gameName}!</h2>
+            ${resultText ? `<p style="margin: 15px 0; font-size: 1.1rem; color: var(--primary-color); font-weight: bold;">${resultText}</p>` : ''}
             <p style="margin: 20px 0; color: var(--text-secondary);">Agora você foi liberado para girar a Roleta de Descontos e conquistar seu benefício exclusivo!</p>
             <button class="btn btn-silver" onclick="renderRouletteGame(document.getElementById('gameContainer'))">Ir para a Roleta de Descontos 🎡</button>
         </div>
@@ -627,7 +628,6 @@ function finishMinigame(gameName) {
 
 // JOGO 1: MEMÓRIA (COM ROTAÇÃO ALEATÓRIA DE CARTAS A CADA INÍCIO)
 function renderMemoryGame(container) {
-    // Sorteia 4 produtos aleatórios do catálogo a cada partida
     const shuffledProducts = [...PRODUCTS].sort(() => Math.random() - 0.5);
     const sampleProducts = shuffledProducts.slice(0, 4);
     
@@ -679,7 +679,7 @@ function renderMemoryGame(container) {
     });
 }
 
-// JOGO 2: QUIZ (COM EXPANSAO DE PERGUNTAS E ALTERNÂNCIA ALEATÓRIA)
+// JOGO 2: QUIZ (5 PERGUNTAS COM CONTAGEM DE ACERTOS E ERROS)
 function renderQuizGame(container) {
     const allQuestions = [
         { q: "Qual o teor de prata pura na Prata 925?", options: ["92,5%", "50%", "100%", "75%"], correct: 0 },
@@ -692,8 +692,8 @@ function renderQuizGame(container) {
         { q: "O que a Zircônia representa nas joias em Prata 925?", options: ["Uma gema sintética de alto brilho que imita o diamante", "Um tipo de vidro comum", "Uma tinta prateada", "Um plástico rígido"], correct: 0 }
     ];
 
-    // Embaralha todas as perguntas e sorteia 3 para a partida
-    const selectedQuestions = [...allQuestions].sort(() => Math.random() - 0.5).slice(0, 3);
+    // Sorteia 5 perguntas para a partida
+    const selectedQuestions = [...allQuestions].sort(() => Math.random() - 0.5).slice(0, 5);
     
     // Embaralha as opções de cada pergunta sorteada
     selectedQuestions.forEach(q => {
@@ -703,6 +703,8 @@ function renderQuizGame(container) {
     });
 
     let qIndex = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
 
     function showQuestion() {
         const q = selectedQuestions[qIndex];
@@ -721,25 +723,27 @@ function renderQuizGame(container) {
 
     window.checkQuizAnswer = (ans) => {
         if (ans === selectedQuestions[qIndex].correct) {
-            qIndex++;
-            if (qIndex < selectedQuestions.length) {
-                showQuestion();
-            } else {
-                finishMinigame('Quiz de Prata 925');
-            }
+            correctCount++;
         } else {
-            alert('Resposta incorreta! Tente novamente.');
+            wrongCount++;
+            alert('Resposta incorreta!');
+        }
+
+        qIndex++;
+        if (qIndex < selectedQuestions.length) {
+            showQuestion();
+        } else {
+            finishMinigame('Quiz de Prata 925', `Você acertou ${correctCount} alternativa(s) e errou ${wrongCount}!`);
         }
     };
 
     showQuestion();
 }
 
-// JOGO 3: CAÇA-PALAVRAS (GRID EXPANDIDO, DIREÇÕES VARIADAS E DISTRIBUIÇÃO DINÂMICA)
+// JOGO 3: CAÇA-PALAVRAS
 function renderWordSearchGame(container) {
     const wordPool = ["PRATA", "ANEL", "BRINCO", "COLAR", "JOIA", "PINGENTE", "CORRENTE", "PULSEIRA", "ALIANCA", "SOLITARIO", "CHOKER", "ZEBRA", "BRIO"];
     
-    // Sorteia 6 palavras da lista
     const selectedWords = [...wordPool].sort(() => Math.random() - 0.5).slice(0, 6);
     
     const ROWS = 10;
@@ -747,7 +751,6 @@ function renderWordSearchGame(container) {
     let grid = Array.from({ length: ROWS }, () => Array(COLS).fill(''));
     let placedWordDetails = [];
 
-    // Direções: Horizontal (0,1), Vertical (1,0), Diagonal Abai-Dir (1,1), Diagonal Acim-Dir (-1,1)
     const directions = [
         { r: 0, c: 1 },
         { r: 1, c: 0 },
@@ -755,7 +758,6 @@ function renderWordSearchGame(container) {
         { r: -1, c: 1 }
     ];
 
-    // Tenta posicionar as palavras sorteadas no grid
     selectedWords.forEach(word => {
         let placed = false;
         let attempts = 0;
@@ -795,7 +797,6 @@ function renderWordSearchGame(container) {
         }
     });
 
-    // Preenche os espaços vazios com letras maiúsculas aleatórias
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
@@ -859,7 +860,6 @@ function renderWordSearchGame(container) {
             cellEl.classList.toggle('selected');
         }
 
-        // Verifica se alguma palavra não encontrada foi completada
         placedWordDetails.forEach(wordObj => {
             if (!foundWords.includes(wordObj.name)) {
                 let allSelected = true;
@@ -894,7 +894,7 @@ function renderWordSearchGame(container) {
     };
 }
 
-// JOGO 4: DESAFIO DA PRATA (EXPANDIDO COM ROTAÇÃO E PERGUNTAS ALEATÓRIAS)
+// JOGO 4: DESAFIO DA PRATA (5 QUESTÕES E SEM NOME DO PRODUTO EMBAIXO DA IMAGEM)
 function renderChallengeGame(container) {
     const allChallenges = [
         { q: "Qual destas peças é uma Corrente Grumet?", targetId: 76, options: [76, 24, 130] },
@@ -905,26 +905,24 @@ function renderChallengeGame(container) {
         { q: "Qual destas peças é um Piercing de Nariz?", targetId: 132, options: [130, 132, 74] }
     ];
 
-    // Sorteia 2 desafios aleatórios por partida
-    const selectedChallenges = [...allChallenges].sort(() => Math.random() - 0.5).slice(0, 2);
+    // Sorteia 5 desafios para a partida
+    const selectedChallenges = [...allChallenges].sort(() => Math.random() - 0.5).slice(0, 5);
 
     let step = 0;
 
     function showChallenge() {
         const current = selectedChallenges[step];
-        // Embaralha a ordem das opções exibidas
         const shuffledOptions = [...current.options].sort(() => Math.random() - 0.5);
         const optProducts = shuffledOptions.map(id => PRODUCTS.find(p => p.id === id));
 
         container.innerHTML = `
             <div class="game-box">
                 <h2>🥈 Desafio da Prata</h2>
-                <p style="margin-bottom: 20px;">${current.q}</p>
+                <p style="margin-bottom: 20px;">Questão ${step + 1} de ${selectedChallenges.length}: ${current.q}</p>
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                     ${optProducts.map(p => `
-                        <div style="cursor: pointer; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; width: 140px;" onclick="checkChallengeAnswer(${p.id})">
-                            <img src="${p.image}" style="width: 100%; height: 100px; object-fit: contain; background: #121216; border-radius: 6px;" onerror="this.onerror=null; this.src='https://via.placeholder.com/100/222/fff?text=Joia';">
-                            <p style="font-size: 0.8rem; margin-top: 5px;">${p.name}</p>
+                        <div style="cursor: pointer; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; width: 140px; display: flex; align-items: center; justify-content: center;" onclick="checkChallengeAnswer(${p.id})">
+                            <img src="${p.image}" style="width: 100%; height: 110px; object-fit: contain; background: #121216; border-radius: 6px;" onerror="this.onerror=null; this.src='https://via.placeholder.com/100/222/fff?text=Joia';">
                         </div>
                     `).join('')}
                 </div>
@@ -1051,7 +1049,6 @@ function spinRoulette() {
     const extraRounds = 5 * 2 * Math.PI;
     const totalRotation = extraRounds + targetAngle;
 
-    let currentRotation = 0;
     const duration = 4000;
     const startTime = performance.now();
 
