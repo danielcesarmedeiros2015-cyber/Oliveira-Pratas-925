@@ -625,9 +625,12 @@ function finishMinigame(gameName) {
     `;
 }
 
-// JOGO 1: MEMÓRIA
+// JOGO 1: MEMÓRIA (COM ROTAÇÃO ALEATÓRIA DE CARTAS A CADA INÍCIO)
 function renderMemoryGame(container) {
-    const sampleProducts = PRODUCTS.slice(0, 4);
+    // Sorteia 4 produtos aleatórios do catálogo a cada partida
+    const shuffledProducts = [...PRODUCTS].sort(() => Math.random() - 0.5);
+    const sampleProducts = shuffledProducts.slice(0, 4);
+    
     let cards = [...sampleProducts, ...sampleProducts].sort(() => Math.random() - 0.5);
     let flippedCards = [];
     let matchedPairs = 0;
@@ -676,22 +679,37 @@ function renderMemoryGame(container) {
     });
 }
 
-// JOGO 2: QUIZ
+// JOGO 2: QUIZ (COM EXPANSAO DE PERGUNTAS E ALTERNÂNCIA ALEATÓRIA)
 function renderQuizGame(container) {
-    const questions = [
+    const allQuestions = [
         { q: "Qual o teor de prata pura na Prata 925?", options: ["92,5%", "50%", "100%", "75%"], correct: 0 },
         { q: "Qual desses cuidados ajuda a manter o brilho da prata?", options: ["Usar Limpa Pratas adequado", "Lavar com água sanitária", "Guardar no sol", "Usar palha de aço"], correct: 0 },
-        { q: "A Prata 950 contém mais prata pura que a 925?", options: ["Sim, possui 95% de prata pura", "Não, é inferior", "São idênticas", "Nenhuma das alternativas"], correct: 0 }
+        { q: "A Prata 950 contém mais prata pura que a 925?", options: ["Sim, possui 95% de prata pura", "Não, é inferior", "São idênticas", "Nenhuma das alternativas"], correct: 0 },
+        { q: "O escurecimento da prata (oxidação) é um processo normal?", options: ["Sim, é uma reação natural ao enxofre/suor", "Não, indica que a peça é falsa", "Ocorre apenas em bijuterias", "Acontece apenas se molhar com refrigerante"], correct: 0 },
+        { q: "Qual é o nome do produto indicado para devolver o brilho às suas joias?", options: ["Limpa Pratas", "Detergente de Maçã", "Sabão em Pó", "Álcool 70%"], correct: 0 },
+        { q: "Qual o metal de liga mais comum usado na Prata 925?", options: ["Cobre", "Ouro", "Alumínio", "Ferro"], correct: 0 },
+        { q: "Como guardar suas joias de prata para evitar oxidação precoce?", options: ["Em local seco, fechado e longe da umidade", "Dentro do congelador", "Expostas ao sol na janela", "Em local úmido como o banheiro"], correct: 0 },
+        { q: "O que a Zircônia representa nas joias em Prata 925?", options: ["Uma gema sintética de alto brilho que imita o diamante", "Um tipo de vidro comum", "Uma tinta prateada", "Um plástico rígido"], correct: 0 }
     ];
+
+    // Embaralha todas as perguntas e sorteia 3 para a partida
+    const selectedQuestions = [...allQuestions].sort(() => Math.random() - 0.5).slice(0, 3);
+    
+    // Embaralha as opções de cada pergunta sorteada
+    selectedQuestions.forEach(q => {
+        const correctText = q.options[q.correct];
+        q.options.sort(() => Math.random() - 0.5);
+        q.correct = q.options.indexOf(correctText);
+    });
 
     let qIndex = 0;
 
     function showQuestion() {
-        const q = questions[qIndex];
+        const q = selectedQuestions[qIndex];
         container.innerHTML = `
             <div class="game-box">
-                <h2>❓ 925 — Quiz de Prata 925</h2>
-                <p style="margin-bottom: 20px;">Pergunta ${qIndex + 1} de ${questions.length}: ${q.q}</p>
+                <h2>❓ Quiz de Prata 925</h2>
+                <p style="margin-bottom: 20px;">Pergunta ${qIndex + 1} de ${selectedQuestions.length}: ${q.q}</p>
                 <div class="quiz-options">
                     ${q.options.map((opt, i) => `
                         <button class="quiz-btn" onclick="checkQuizAnswer(${i})">${opt}</button>
@@ -702,9 +720,9 @@ function renderQuizGame(container) {
     }
 
     window.checkQuizAnswer = (ans) => {
-        if (ans === questions[qIndex].correct) {
+        if (ans === selectedQuestions[qIndex].correct) {
             qIndex++;
-            if (qIndex < questions.length) {
+            if (qIndex < selectedQuestions.length) {
                 showQuestion();
             } else {
                 finishMinigame('Quiz de Prata 925');
@@ -717,52 +735,96 @@ function renderQuizGame(container) {
     showQuestion();
 }
 
-// JOGO 3: CAÇA-PALAVRAS
+// JOGO 3: CAÇA-PALAVRAS (GRID EXPANDIDO, DIREÇÕES VARIADAS E DISTRIBUIÇÃO DINÂMICA)
 function renderWordSearchGame(container) {
-    const words = [
-        { name: "PRATA", row: 0, startCol: 0 },
-        { name: "ANEL", row: 1, startCol: 0 },
-        { name: "BRINCO", row: 2, startCol: 0 },
-        { name: "COLAR", row: 3, startCol: 0 },
-        { name: "JOIA", row: 4, startCol: 0 },
-        { name: "PINGENTE", row: 5, startCol: 0 },
-        { name: "CORRENTE", row: 6, startCol: 0 },
-        { name: "PULSEIRA", row: 7, startCol: 0 }
+    const wordPool = ["PRATA", "ANEL", "BRINCO", "COLAR", "JOIA", "PINGENTE", "CORRENTE", "PULSEIRA", "ALIANCA", "SOLITARIO", "CHOKER", "ZEBRA", "BRIO"];
+    
+    // Sorteia 6 palavras da lista
+    const selectedWords = [...wordPool].sort(() => Math.random() - 0.5).slice(0, 6);
+    
+    const ROWS = 10;
+    const COLS = 10;
+    let grid = Array.from({ length: ROWS }, () => Array(COLS).fill(''));
+    let placedWordDetails = [];
+
+    // Direções: Horizontal (0,1), Vertical (1,0), Diagonal Abai-Dir (1,1), Diagonal Acim-Dir (-1,1)
+    const directions = [
+        { r: 0, c: 1 },
+        { r: 1, c: 0 },
+        { r: 1, c: 1 },
+        { r: -1, c: 1 }
     ];
 
-    const grid = [
-        ['P','R','A','T','A','M','O','R','S','U'],
-        ['A','N','E','L','J','O','I','A','S','B'],
-        ['B','R','I','N','C','O','P','R','A','T'],
-        ['C','O','L','A','R','V','E','R','D','E'],
-        ['J','O','I','A','P','R','A','T','A','S'],
-        ['P','I','N','G','E','N','T','E','X','Y'],
-        ['C','O','R','R','E','N','T','E','Z','W'],
-        ['P','U','L','S','E','I','R','A','K','L']
-    ];
+    // Tenta posicionar as palavras sorteadas no grid
+    selectedWords.forEach(word => {
+        let placed = false;
+        let attempts = 0;
+
+        while (!placed && attempts < 200) {
+            attempts++;
+            const dir = directions[Math.floor(Math.random() * directions.length)];
+            const startRow = Math.floor(Math.random() * ROWS);
+            const startCol = Math.floor(Math.random() * COLS);
+
+            let endRow = startRow + dir.r * (word.length - 1);
+            let endCol = startCol + dir.c * (word.length - 1);
+
+            if (endRow >= 0 && endRow < ROWS && endCol >= 0 && endCol < COLS) {
+                let fits = true;
+                for (let i = 0; i < word.length; i++) {
+                    let r = startRow + dir.r * i;
+                    let c = startCol + dir.c * i;
+                    if (grid[r][c] !== '' && grid[r][c] !== word[i]) {
+                        fits = false;
+                        break;
+                    }
+                }
+
+                if (fits) {
+                    let cells = [];
+                    for (let i = 0; i < word.length; i++) {
+                        let r = startRow + dir.r * i;
+                        let c = startCol + dir.c * i;
+                        grid[r][c] = word[i];
+                        cells.push({ r, c });
+                    }
+                    placedWordDetails.push({ name: word, cells });
+                    placed = true;
+                }
+            }
+        }
+    });
+
+    // Preenche os espaços vazios com letras maiúsculas aleatórias
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+            if (grid[r][c] === '') {
+                grid[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+            }
+        }
+    }
 
     let foundWords = [];
 
     let gridHtml = '';
-    for (let r = 0; r < grid.length; r++) {
-        for (let c = 0; c < grid[r].length; c++) {
-            let wordBelong = words.find(w => w.row === r && c >= w.startCol && c < w.startCol + w.name.length);
-            let wordAttr = wordBelong ? wordBelong.name : '';
-            gridHtml += `<div class="ws-cell" data-row="${r}" data-col="${c}" data-word="${wordAttr}" onclick="clickWordSearchCell(${r}, ${c}, '${wordAttr}')">${grid[r][c]}</div>`;
+    for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+            gridHtml += `<div class="ws-cell" data-row="${r}" data-col="${c}" onclick="clickWordSearchCell(${r}, ${c})">${grid[r][c]}</div>`;
         }
     }
 
     container.innerHTML = `
         <div class="game-box">
             <h2>🔎 Caça-palavras da Prata</h2>
-            <p style="font-size: 0.85rem; margin-bottom: 12px; color: var(--text-secondary);">Encontre e selecione as letras das 8 palavras na grade abaixo:</p>
+            <p style="font-size: 0.85rem; margin-bottom: 12px; color: var(--text-secondary);">Encontre as ${placedWordDetails.length} palavras no grid (horizontal, vertical e diagonal):</p>
             
-            <div class="ws-grid-container" style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; max-width: 320px; margin: 0 auto 15px auto;">
+            <div class="ws-grid-container" style="display: grid; grid-template-columns: repeat(${COLS}, 1fr); gap: 4px; max-width: 340px; margin: 0 auto 15px auto;">
                 ${gridHtml}
             </div>
 
             <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;">
-                ${words.map(w => `<span id="ws-badge-${w.name}" style="padding: 4px 8px; background: rgba(255,255,255,0.1); border-radius: 12px; font-size: 0.75rem; color: #ccc;">${w.name}</span>`).join('')}
+                ${placedWordDetails.map(w => `<span id="ws-badge-${w.name}" style="padding: 4px 8px; background: rgba(255,255,255,0.1); border-radius: 12px; font-size: 0.75rem; color: #ccc;">${w.name}</span>`).join('')}
             </div>
         </div>
         <style>
@@ -791,61 +853,68 @@ function renderWordSearchGame(container) {
         </style>
     `;
 
-    window.clickWordSearchCell = (r, c, wordName) => {
-        if (!wordName) return;
-
+    window.clickWordSearchCell = (r, c) => {
         const cellEl = document.querySelector(`.ws-cell[data-row="${r}"][data-col="${c}"]`);
         if (cellEl) {
             cellEl.classList.toggle('selected');
         }
 
-        const targetWordObj = words.find(w => w.name === wordName);
-        if (!targetWordObj) return;
+        // Verifica se alguma palavra não encontrada foi completada
+        placedWordDetails.forEach(wordObj => {
+            if (!foundWords.includes(wordObj.name)) {
+                let allSelected = true;
+                wordObj.cells.forEach(cell => {
+                    const el = document.querySelector(`.ws-cell[data-row="${cell.r}"][data-col="${cell.c}"]`);
+                    if (!el || !el.classList.contains('selected')) {
+                        allSelected = false;
+                    }
+                });
 
-        let allSelected = true;
-        for (let col = targetWordObj.startCol; col < targetWordObj.startCol + targetWordObj.name.length; col++) {
-            const el = document.querySelector(`.ws-cell[data-row="${targetWordObj.row}"][data-col="${col}"]`);
-            if (!el || !el.classList.contains('selected')) {
-                allSelected = false;
-                break;
-            }
-        }
+                if (allSelected) {
+                    foundWords.push(wordObj.name);
+                    const badge = document.getElementById(`ws-badge-${wordObj.name}`);
+                    if (badge) {
+                        badge.style.background = '#25d366';
+                        badge.style.color = '#000';
+                        badge.style.fontWeight = 'bold';
+                        badge.innerHTML = `✓ ${wordObj.name}`;
+                    }
 
-        if (allSelected && !foundWords.includes(wordName)) {
-            foundWords.push(wordName);
-            
-            const badge = document.getElementById(`ws-badge-${wordName}`);
-            if (badge) {
-                badge.style.background = '#25d366';
-                badge.style.color = '#000';
-                badge.style.fontWeight = 'bold';
-                badge.innerHTML = `✓ ${wordName}`;
-            }
+                    wordObj.cells.forEach(cell => {
+                        const el = document.querySelector(`.ws-cell[data-row="${cell.r}"][data-col="${cell.c}"]`);
+                        if (el) el.classList.add('found');
+                    });
 
-            for (let col = targetWordObj.startCol; col < targetWordObj.startCol + targetWordObj.name.length; col++) {
-                const el = document.querySelector(`.ws-cell[data-row="${targetWordObj.row}"][data-col="${col}"]`);
-                if (el) el.classList.add('found');
+                    if (foundWords.length === placedWordDetails.length) {
+                        setTimeout(() => finishMinigame('Caça-palavras'), 600);
+                    }
+                }
             }
-
-            if (foundWords.length === words.length) {
-                setTimeout(() => finishMinigame('Caça-palavras'), 600);
-            }
-        }
+        });
     };
 }
 
-// JOGO 4: DESAFIO DA PRATA
+// JOGO 4: DESAFIO DA PRATA (EXPANDIDO COM ROTAÇÃO E PERGUNTAS ALEATÓRIAS)
 function renderChallengeGame(container) {
-    const challenges = [
+    const allChallenges = [
         { q: "Qual destas peças é uma Corrente Grumet?", targetId: 76, options: [76, 24, 130] },
-        { q: "Qual destas peças é um Limpa Pratas?", targetId: 130, options: [38, 130, 117] }
+        { q: "Qual destas peças é um Limpa Pratas?", targetId: 130, options: [38, 130, 117] },
+        { q: "Qual destas peças é um Anel Solitário?", targetId: 24, options: [24, 76, 90] },
+        { q: "Qual destas peças é um Pingente Cruz Palito?", targetId: 90, options: [111, 90, 120] },
+        { q: "Qual destas peças é uma Pulseira Coração Vermelho?", targetId: 117, options: [117, 132, 2] },
+        { q: "Qual destas peças é um Piercing de Nariz?", targetId: 132, options: [130, 132, 74] }
     ];
+
+    // Sorteia 2 desafios aleatórios por partida
+    const selectedChallenges = [...allChallenges].sort(() => Math.random() - 0.5).slice(0, 2);
 
     let step = 0;
 
     function showChallenge() {
-        const current = challenges[step];
-        const optProducts = current.options.map(id => PRODUCTS.find(p => p.id === id));
+        const current = selectedChallenges[step];
+        // Embaralha a ordem das opções exibidas
+        const shuffledOptions = [...current.options].sort(() => Math.random() - 0.5);
+        const optProducts = shuffledOptions.map(id => PRODUCTS.find(p => p.id === id));
 
         container.innerHTML = `
             <div class="game-box">
@@ -864,9 +933,9 @@ function renderChallengeGame(container) {
     }
 
     window.checkChallengeAnswer = (selectedId) => {
-        if (selectedId === challenges[step].targetId) {
+        if (selectedId === selectedChallenges[step].targetId) {
             step++;
-            if (step < challenges.length) {
+            if (step < selectedChallenges.length) {
                 showChallenge();
             } else {
                 finishMinigame('Desafio da Prata');
