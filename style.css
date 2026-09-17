@@ -1,26 +1,4 @@
-/* ==========================================================================
-   ESTILOS OLIVEIRA PRATAS 925 - ATUALIZADO
-   ========================================================================== */
-
-:root {
-    --bg-primary: #0a0a0d;
-    --bg-secondary: #121216;
-    --bg-card: #1a1a22;
-    --primary-color: #d4af37;
-    --primary-hover: #f3ca40;
-    --silver-color: #e0e0e0;
-    --silver-glow: rgba(224, 224, 224, 0.2);
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0ab;
-    --border-color: #2a2a35;
-    --danger-color: #e74c3c;
-    --success-color: #2ecc71;
-    --radius-sm: 6px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
-    --transition: all 0.3s ease;
-}
-
+/* CONFIGURAÇÕES GERAIS */
 * {
     margin: 0;
     padding: 0;
@@ -29,10 +7,11 @@
 }
 
 body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
+    background-color: var(--bg-primary, #000);
+    color: var(--text-primary, #fff);
     line-height: 1.6;
     overflow-x: hidden;
+    width: 100%;
 }
 
 a {
@@ -45,222 +24,37 @@ button {
     border: none;
     outline: none;
     background: none;
-    font-family: inherit;
 }
 
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* CONTAINER E GRID PRINCIPAL */
 .container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 15px;
 }
 
-.section-padding {
-    padding: 80px 0;
-}
-
-.dark-bg {
-    background-color: var(--bg-secondary);
-}
-
-.text-center {
-    text-align: center;
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* NAVBAR */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(10, 10, 13, 0.95);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    border-bottom: 1px solid var(--border-color);
-    height: 70px;
-    display: flex;
-    align-items: center;
-}
-
-.nav-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.brand-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo-img {
-    height: 42px;
-    width: 42px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.brand-name {
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-    color: var(--silver-color);
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links a {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    transition: var(--transition);
-}
-
-.nav-links a:hover {
-    color: var(--silver-color);
-}
-
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.icon-link {
-    color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-}
-
-.icon-link:hover {
-    color: var(--text-primary);
-}
-
-.action-btn {
-    position: relative;
-    font-size: 1.2rem;
-    padding: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.badge {
-    position: absolute;
-    top: -4px;
-    right: -6px;
-    background-color: var(--primary-color);
-    color: #000;
-    font-size: 0.7rem;
-    font-weight: bold;
-    height: 18px;
-    width: 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mobile-toggle {
-    display: none;
-    font-size: 1.5rem;
-    color: var(--text-primary);
-}
-
-/* HERO */
-.hero-section {
-    padding: 140px 0 80px 0;
-    background: radial-gradient(circle at center, #1a1a26 0%, var(--bg-primary) 70%);
-    text-align: center;
-}
-
-.hero-logo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-    box-shadow: 0 0 25px var(--silver-glow);
-}
-
-.hero-title {
-    font-size: 2.8rem;
-    margin-bottom: 15px;
-    color: var(--silver-color);
-}
-
-.hero-subtitle {
-    max-width: 650px;
-    margin: 0 auto 30px auto;
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-}
-
-.hero-cta {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.hero-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.badge-item {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-/* TITULOS DE SEÇÃO */
-.section-title {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 40px;
-    color: var(--text-primary);
-}
-
-.section-title span {
-    display: block;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--primary-color);
-    margin-bottom: 5px;
-}
-
-/* GRID DE PRODUTOS */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 25px;
 }
+
+/* CARDS DE PRODUTO */
 .product-card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
+    background-color: var(--bg-card, #111);
+    border: 1px solid var(--border-color, #222);
+    border-radius: var(--radius-md, 8px);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: var(--transition);
+    transition: var(--transition, all 0.3s ease);
 }
 
 .product-card:hover {
@@ -296,6 +90,7 @@ button {
     align-items: center;
     justify-content: center;
     font-size: 0.9rem;
+    color: #fff;
 }
 
 .product-info {
@@ -307,7 +102,7 @@ button {
 
 .product-category {
     font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
     margin-bottom: 5px;
 }
 
@@ -326,7 +121,7 @@ button {
 .product-price {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--text-primary, #fff);
     margin-top: auto;
     margin-bottom: 15px;
 }
@@ -334,17 +129,17 @@ button {
 .add-cart-btn {
     width: 100%;
     background-color: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
+    border: 1px solid var(--border-color, #333);
+    color: var(--text-primary, #fff);
     padding: 10px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-sm, 4px);
     font-weight: 600;
     font-size: 0.8rem;
-    transition: var(--transition);
+    transition: var(--transition, all 0.3s ease);
 }
 
 .add-cart-btn:hover {
-    background-color: var(--text-primary);
+    background-color: var(--text-primary, #fff);
     color: #000;
 }
 
@@ -362,10 +157,10 @@ button {
 .search-box input {
     width: 100%;
     padding: 12px 15px 12px 40px;
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background-color: var(--bg-card, #111);
+    border: 1px solid var(--border-color, #333);
     border-radius: 30px;
-    color: var(--text-primary);
+    color: var(--text-primary, #fff);
     font-size: 0.9rem;
 }
 
@@ -386,21 +181,21 @@ button {
 
 .cat-btn {
     padding: 6px 14px;
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background-color: var(--bg-card, #111);
+    border: 1px solid var(--border-color, #333);
     border-radius: 20px;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
     font-size: 0.8rem;
-    transition: var(--transition);
+    transition: var(--transition, all 0.3s ease);
 }
 
 .cat-btn.active, .cat-btn:hover {
-    background-color: var(--text-primary);
+    background-color: var(--text-primary, #fff);
     color: #000;
-    border-color: var(--text-primary);
+    border-color: var(--text-primary, #fff);
 }
 
-/* BOTOES GERAIS */
+/* BOTÕES GERAIS */
 .btn {
     padding: 12px 24px;
     border-radius: 30px;
@@ -409,11 +204,11 @@ button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: var(--transition);
+    transition: var(--transition, all 0.3s ease);
 }
 
 .btn-primary {
-    background-color: var(--text-primary);
+    background-color: var(--text-primary, #fff);
     color: #000;
 }
 
@@ -422,21 +217,21 @@ button {
 }
 
 .btn-outline {
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
+    border: 1px solid var(--border-color, #333);
+    color: var(--text-primary, #fff);
 }
 
 .btn-outline:hover {
-    border-color: var(--text-primary);
+    border-color: var(--text-primary, #fff);
 }
 
 .btn-silver {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color, #c0c0c0);
     color: #000;
 }
 
 .btn-danger {
-    background-color: var(--danger-color);
+    background-color: var(--danger-color, #e53935);
     color: #fff;
 }
 
@@ -448,12 +243,12 @@ button {
 .games-description {
     max-width: 600px;
     margin: 0 auto 10px auto;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
 }
 
 .games-notice {
     font-size: 0.8rem;
-    color: var(--primary-color);
+    color: var(--primary-color, #c0c0c0);
     margin-bottom: 30px;
 }
 
@@ -464,9 +259,9 @@ button {
 }
 
 .game-card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
+    background-color: var(--bg-card, #111);
+    border: 1px solid var(--border-color, #333);
+    border-radius: var(--radius-md, 8px);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -484,12 +279,12 @@ button {
 
 .game-card p {
     font-size: 0.8rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
     flex-grow: 1;
 }
 
 .highlight-card {
-    border-color: var(--primary-color);
+    border-color: var(--primary-color, #c0c0c0);
 }
 
 /* CONFIANÇA & SOBRE */
@@ -500,10 +295,10 @@ button {
 }
 
 .trust-card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background-color: var(--bg-card, #111);
+    border: 1px solid var(--border-color, #333);
     padding: 30px;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-md, 8px);
     text-align: center;
 }
 
@@ -516,17 +311,17 @@ button {
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
 }
 
 .about-content p {
     margin-bottom: 15px;
 }
 
-/* RODAPE */
+/* RODAPÉ */
 .footer {
     background-color: #050507;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color, #333);
     padding: 50px 0 20px 0;
 }
 
@@ -543,12 +338,12 @@ button {
 
 .footer-info p {
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
 }
 
 .footer-notice {
     margin-top: 10px;
-    color: var(--primary-color) !important;
+    color: var(--primary-color, #c0c0c0) !important;
 }
 
 .footer-links {
@@ -564,21 +359,21 @@ button {
 
 .footer-links a {
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
 }
 
 .footer-payments p {
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
     margin-bottom: 5px;
 }
 
 .footer-bottom {
     text-align: center;
     padding-top: 20px;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color, #333);
     font-size: 0.8rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
 }
 
 /* WHATSAPP FLOAT */
@@ -611,7 +406,7 @@ button {
     z-index: 2000;
     opacity: 0;
     pointer-events: none;
-    transition: var(--transition);
+    transition: var(--transition, all 0.3s ease);
     padding: 20px;
 }
 
@@ -621,9 +416,9 @@ button {
 }
 
 .modal-content {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
+    background-color: var(--bg-card, #111);
+    border: 1px solid var(--border-color, #333);
+    border-radius: var(--radius-md, 8px);
     padding: 30px;
     max-width: 500px;
     width: 100%;
@@ -641,7 +436,7 @@ button {
     top: 15px;
     right: 15px;
     font-size: 1.2rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
 }
 
 /* ITENS CARRINHO */
@@ -650,13 +445,13 @@ button {
     align-items: center;
     gap: 15px;
     padding: 12px 0;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color, #333);
 }
 
 .cart-item-img {
     width: 50px;
     height: 50px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-sm, 4px);
     object-fit: cover;
 }
 
@@ -671,7 +466,7 @@ button {
 
 .cart-item-price {
     font-size: 0.8rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
 }
 
 .qty-controls {
@@ -682,9 +477,9 @@ button {
 }
 
 .qty-btn {
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
+    background-color: var(--bg-primary, #000);
+    border: 1px solid var(--border-color, #333);
+    color: var(--text-primary, #fff);
     width: 24px;
     height: 24px;
     border-radius: 4px;
@@ -696,8 +491,8 @@ button {
 .cart-summary {
     margin: 20px 0;
     padding: 15px;
-    background-color: var(--bg-primary);
-    border-radius: var(--radius-sm);
+    background-color: var(--bg-primary, #000);
+    border-radius: var(--radius-sm, 4px);
 }
 
 .summary-row {
@@ -710,7 +505,7 @@ button {
 .summary-row.total {
     font-weight: bold;
     font-size: 1.1rem;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color, #333);
     padding-top: 8px;
     margin-top: 8px;
 }
@@ -728,10 +523,10 @@ button {
 .form-group input, .form-group select {
     width: 100%;
     padding: 10px;
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    color: var(--text-primary);
+    background-color: var(--bg-primary, #000);
+    border: 1px solid var(--border-color, #333);
+    border-radius: var(--radius-sm, 4px);
+    color: var(--text-primary, #fff);
 }
 
 .radio-label {
@@ -759,9 +554,9 @@ button {
 
 .memory-card {
     aspect-ratio: 1;
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
+    background-color: var(--bg-primary, #000);
+    border: 1px solid var(--border-color, #333);
+    border-radius: var(--radius-sm, 4px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -779,10 +574,10 @@ button {
 
 .quiz-btn {
     padding: 12px;
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    color: var(--text-primary);
+    background-color: var(--bg-primary, #000);
+    border: 1px solid var(--border-color, #333);
+    border-radius: var(--radius-sm, 4px);
+    color: var(--text-primary, #fff);
     text-align: left;
 }
 
@@ -803,11 +598,11 @@ button {
     height: 0;
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
-    border-top: 24px solid var(--primary-color);
+    border-top: 24px solid var(--primary-color, #c0c0c0);
     z-index: 10;
 }
 
-/* VÍDEO DIRETO E CARD DESTACADO */
+/* VÍDEO E MÍDIA */
 .video-container {
     display: flex;
     justify-content: center;
@@ -818,8 +613,8 @@ button {
 
 .custom-video {
     width: 100%;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--border-color, #333);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     background-color: #000;
 }
@@ -829,18 +624,23 @@ button {
     margin: 0 auto;
 }
 
-/* RESPONSIVIDADE */
+/* RESPONSIVIDADE (CELULAR E TABLET) */
 @media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
     .nav-links {
         display: none;
         position: absolute;
         top: 70px;
         left: 0;
         width: 100%;
-        background-color: var(--bg-primary);
+        background-color: var(--bg-primary, #000);
         flex-direction: column;
         padding: 20px;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color, #333);
     }
 
     .nav-links.active {
@@ -852,6 +652,6 @@ button {
     }
 
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 }
