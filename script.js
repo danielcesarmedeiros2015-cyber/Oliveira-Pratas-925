@@ -895,20 +895,20 @@ function renderWordSearchGame(container) {
 }
 
 // JOGO 4: DESAFIO DA PRATA (EXPANDIDO COM ROTAÇÃO E PERGUNTAS ALEATÓRIAS)
-function renderChallengeGame(container) {
+// Lista de desafios focada exclusivamente em Joias de Prata 925
     const allChallenges = [
-        { q: "Qual destas peças é uma Corrente Grumet?", targetId: 76, options: [76, 24, 130] },
-        { q: "Qual destas peças é um Limpa Pratas?", targetId: 130, options: [38, 130, 117] },
-        { q: "Qual destas peças é um Anel Solitário?", targetId: 24, options: [24, 76, 90] },
-        { q: "Qual destas peças é um Pingente Cruz Palito?", targetId: 90, options: [111, 90, 120] },
-        { q: "Qual destas peças é uma Pulseira Coração Vermelho?", targetId: 117, options: [117, 132, 2] },
-        { q: "Qual destas peças é um Piercing de Nariz?", targetId: 132, options: [130, 132, 74] }
+        { q: "Qual destas peças é uma Corrente Grumet?", targetId: 76, options: [...] },
+        { q: "Qual destas peças é um Anel Solitário?", targetId: 24, options: [...] },
+        { q: "Qual destas peças é um Pingente Cruz Palito?", targetId: 90, options: [...] },
+        { q: "Qual destas peças é uma Pulseira Coração Vermelho?", targetId: 105, options: [...] },
+        { q: "Qual destas peças é um Piercing de Nariz?", targetId: 132, options: [...] }
     ];
 
-    // Sorteia 2 desafios aleatórios por partida
-    const selectedChallenges = [...allChallenges].sort(() => Math.random() - 0.5).slice(0, 2);
+    // Sorteia 5 desafios aleatórios por partida (ou altere o número 5 para a quantidade desejada)
+    const selectedChallenges = [...allChallenges].sort(() => Math.random() - 0.5).slice(0, 5);
 
     let step = 0;
+    let acertos = 0; // Contador de acertos
 
     function showChallenge() {
         const current = selectedChallenges[step];
@@ -924,7 +924,6 @@ function renderChallengeGame(container) {
                     ${optProducts.map(p => `
                         <div style="cursor: pointer; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; width: 140px;" onclick="checkChallengeAnswer(${p.id})">
                             <img src="${p.image}" style="width: 100%; height: 100px; object-fit: contain; background: #121216; border-radius: 6px;" onerror="this.onerror=null; this.src='https://via.placeholder.com/100/222/fff?text=Joia';">
-                            <p style="font-size: 0.8rem; margin-top: 5px;">${p.name}</p>
                         </div>
                     `).join('')}
                 </div>
@@ -932,18 +931,39 @@ function renderChallengeGame(container) {
         `;
     }
 
-    window.checkChallengeAnswer = (selectedId) => {
-        if (selectedId === selectedChallenges[step].targetId) {
-            step++;
-            if (step < selectedChallenges.length) {
-                showChallenge();
-            } else {
-                finishMinigame('Desafio da Prata');
-            }
+  window.checkChallengeAnswer = (selectedId) => {
+    if (selectedId === selectedChallenges[step].targetId) {
+        acertos++;
+    }
+
+    step++;
+
+    if (step < selectedChallenges.length) {
+        showChallenge();
+    } else {
+        let mensagem = "";
+        const porcentagem = (acertos / selectedChallenges.length) * 100;
+
+        if (porcentagem === 100) {
+            mensagem = "🏆 Mestre da Prata 925! Você acertou tudo!";
+        } else if (porcentagem >= 60) {
+            mensagem = "👏 Muito bem! Você conhece muito bem nossas joias!";
         } else {
-            alert('Ops! Essa não é a peça correta. Tente novamente!');
+            mensagem = "💡 Quase lá! Que tal dar uma olhada no nosso catálogo para conhecer mais?";
         }
-    };
+
+        container.innerHTML = `
+            <div style="text-align: center; padding: 25px;">
+                <h2 style="font-size: 22px; margin-bottom: 15px;">Fim do Desafio! 🎉</h2>
+                <p style="font-size: 18px; margin-bottom: 10px;">Você acertou <strong>${acertos}</strong> de <strong>${selectedChallenges.length}</strong> perguntas.</p>
+                <p style="color: var(--text-secondary); margin-bottom: 25px;">${mensagem}</p>
+                <button onclick="renderChallengeGame(container)" class="btn btn-outline" style="width: 100%; max-width: 250px;">
+                    Jogar Novamente 🔄
+                </button>
+            </div>
+        `;
+    }
+};
 
     showChallenge();
 }
@@ -958,86 +978,153 @@ function renderRouletteGame(container) {
         const remainingTime = TWENTY_FOUR_HOURS - (now - parseInt(lastSpinTimestamp, 10));
         const hoursLeft = Math.floor(remainingTime / (1000 * 60 * 60));
         const minutesLeft = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-
         const activeBenefit = localStorage.getItem('op_benefit_percent') || 0;
 
         container.innerHTML = `
-            <div class="game-box">
+            <div class="game-box" style="text-align: center; padding: 20px;">
                 <h2>🎡 Roleta de Descontos</h2>
-                <p style="margin: 20px 0; font-size: 1.1rem; color: #25d366;">
-                    Você já rodou a roleta recentemente!
-                </p>
-                ${activeBenefit > 0 ? `<p style="margin-bottom: 15px;">Seu desconto ativo no carrinho é de: <strong>${activeBenefit}% DE DESCONTO</strong>.</p>` : ''}
+                <p style="margin: 20px 0; font-size: 1.1rem; color: #25d366;">Você já rodou a roleta recentemente!</p>
+                ${activeBenefit > 0 ? `<p style="margin-bottom: 15px;">Seu desconto ativo no carrinho é de: <strong>${activeBenefit}% OFF</strong></p>` : ''}
                 <p style="color: var(--text-secondary); margin-bottom: 20px;">
                     Você poderá girar novamente em aproximadamente <strong>${hoursLeft}h e ${minutesLeft}min</strong>.
                 </p>
-                <button class="btn btn-primary" onclick="closeGameModal(); openCartModal();">Ir para o Carrinho 🛒</button>
             </div>
         `;
         return;
     }
 
-    if (lastSpinTimestamp && (now - parseInt(lastSpinTimestamp, 10)) >= TWENTY_FOUR_HOURS) {
-        localStorage.removeItem('op_benefit_percent');
-        localStorage.removeItem('op_last_spin_time');
-        calculateCartTotals();
-    }
+    // Configuração das 10 fatias alternadas (10% posicionados em lados opostos)
+    const options = [
+        { label: '2%', value: 2, color: '#8cc63f' },
+        { label: '5%', value: 5, color: '#009688' },
+        { label: '8%', value: 8, color: '#0088cc' },
+        { label: '2%', value: 2, color: '#1a53ff' },
+        { label: '10%', value: 10, color: '#6b21a8' }, // 10% Lado Direito
+        { label: '2%', value: 2, color: '#ec4899' },
+        { label: '5%', value: 5, color: '#f97316' },
+        { label: '8%', value: 8, color: '#eab308' },
+        { label: '10%', value: 10, color: '#a3e635' }, // 10% Lado Esquerdo (Paralelo)
+        { label: '2%', value: 2, color: '#06b6d4' }
+    ];
 
-    trackGA4Event('inicio_roleta');
+    const numSlices = options.length;
+    const sliceAngle = 360 / numSlices;
+
+    let gradientParts = [];
+    options.forEach((opt, idx) => {
+        const start = idx * sliceAngle;
+        const end = (idx + 1) * sliceAngle;
+        gradientParts.push(`${opt.color} ${start}deg ${end}deg`);
+    });
 
     container.innerHTML = `
-        <div class="game-box">
-            <h2>🎡 Roleta de Descontos</h2>
-            <p>Gire a roleta e descubra qual benefício você vai conquistar hoje!</p>
-            <div class="roulette-wrapper">
-                <div class="roulette-pointer"></div>
-                <canvas id="rouletteCanvas" width="300" height="300"></canvas>
+        <div class="game-box" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+            <h2 style="margin-bottom: 20px;">🎡 Roleta de Descontos</h2>
+            
+            <div style="position: relative; width: 280px; height: 280px; margin: 10px auto 25px auto;">
+                <!-- Disco da Roleta -->
+                <div id="roulette-wheel" style="
+                    width: 100%; 
+                    height: 100%; 
+                    border-radius: 50%; 
+                    background: conic-gradient(${gradientParts.join(', ')});
+                    position: relative;
+                    transition: transform 4s cubic-bezier(0.15, 0.85, 0.35, 1.02);
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                ">
+                    ${options.map((opt, idx) => {
+                        const angle = idx * sliceAngle + (sliceAngle / 2);
+                        return `
+                            <div style="
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                width: 100px;
+                                height: 30px;
+                                margin-top: -15px;
+                                margin-left: -50px;
+                                transform-origin: center center;
+                                transform: rotate(${angle}deg) translate(85px) rotate(90deg);
+                                color: #ffffff;
+                                font-weight: bold;
+                                font-size: 16px;
+                                text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+                                pointer-events: none;
+                            ">
+                                ${opt.label}
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+
+                <!-- Botão Central com Apontador -->
+                <button id="spin-btn" onclick="spinRoulette()" style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 75px;
+                    height: 75px;
+                    border-radius: 50%;
+                    background: #002b80;
+                    color: white;
+                    border: 3px solid #ffffff;
+                    font-weight: bold;
+                    font-size: 15px;
+                    cursor: pointer;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+                    z-index: 10;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                ">
+                    <div style="
+                        position: absolute;
+                        top: -12px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 0;
+                        height: 0;
+                        border-left: 9px solid transparent;
+                        border-right: 9px solid transparent;
+                        border-bottom: 14px solid #002b80;
+                    "></div>
+                    Girar
+                </button>
             </div>
-            <button id="spinBtn" class="btn btn-silver" onclick="spinRoulette()">Girar Agora!</button>
         </div>
     `;
 
-    setTimeout(drawRoulette, 50);
-}
+    window.spinRoulette = function() {
+        const btn = document.getElementById('spin-btn');
+        const wheel = document.getElementById('roulette-wheel');
+        btn.disabled = true;
 
-const slices = [
-    { label: "5% OFF", value: 5, color: "#d4af37" },
-    { label: "7% OFF", value: 7, color: "#1a1a22" },
-    { label: "10% OFF", value: 10, color: "#e0e0e0" },
-    { label: "5% OFF", value: 5, color: "#2a2a35" },
-    { label: "7% OFF", value: 7, color: "#d4af37" },
-    { label: "10% OFF", value: 10, color: "#1a1a22" }
-];
+        const selectedIndex = Math.floor(Math.random() * numSlices);
+        const selectedOption = options[selectedIndex];
 
-let startAngle = 0;
+        const targetAngle = 360 - (selectedIndex * sliceAngle + sliceAngle / 2);
+        const totalRotation = (360 * 5) + targetAngle;
 
-function drawRoulette() {
-    const canvas = document.getElementById('rouletteCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const numSlices = slices.length;
-    const sliceAngle = (2 * Math.PI) / numSlices;
+        wheel.style.transform = `rotate(${totalRotation}deg)`;
 
-    ctx.clearRect(0, 0, 300, 300);
+        setTimeout(() => {
+            localStorage.setItem('op_last_spin_time', Date.now().toString());
+            localStorage.setItem('op_benefit_percent', selectedOption.value.toString());
 
-    for (let i = 0; i < numSlices; i++) {
-        const angle = startAngle + i * sliceAngle;
-        ctx.beginPath();
-        ctx.fillStyle = slices[i].color;
-        ctx.moveTo(150, 150);
-        ctx.arc(150, 150, 140, angle, angle + sliceAngle);
-        ctx.lineTo(150, 150);
-        ctx.fill();
+            if (typeof updateCartUI === 'function') {
+                updateCartUI();
+            }
 
-        ctx.save();
-        ctx.translate(150, 150);
-        ctx.rotate(angle + sliceAngle / 2);
-        ctx.textAlign = "right";
-        ctx.fillStyle = slices[i].color === "#e0e0e0" ? "#000000" : "#ffffff";
-        ctx.font = "bold 14px Segoe UI";
-        ctx.fillText(slices[i].label, 120, 5);
-        ctx.restore();
-    }
+            container.innerHTML = `
+                <div class="game-box" style="text-align: center; padding: 25px;">
+                    <h2>🎉 Parabéns!</h2>
+                    <p style="font-size: 18px; margin: 15px 0;">Você ganhou <strong>${selectedOption.label} OFF</strong> na sua compra!</p>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">O desconto já foi aplicado ao seu carrinho.</p>
+                </div>
+            `;
+        }, 4200);
+    };
 }
 
 function spinRoulette() {
