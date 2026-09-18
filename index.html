@@ -113,15 +113,13 @@
             <h2 class="section-title"><span>Confira em Vídeo</span></h2>
             <p style="color: var(--text-secondary); margin-bottom: 25px;">Veja de perto a qualidade, o acabamento e o brilho impecável das nossas joias.</p>
             
-<!-- VÍDEO INCORPORADO (YOUTUBE PADRÃO) -->
-<div class="video-container">
-    <iframe class="custom-video-iframe"
-            src="https://www.youtube.com/embed/rl-leePtXXA"
-            title="Como Limpar Prata 925 em Segundos"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-    </iframe>
+<!-- VÍDEO DIRETO NO SITE -->
+<div class="video-container" style="display: flex; justify-content: center; margin-bottom: 25px;">
+    <video controls playsinline preload="metadata" style="width: 100%; max-width: 320px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+        <source src="comolimparsuaprata.mov" type="video/quicktime">
+        <source src="comolimparsuaprata.mov" type="video/mp4">
+        O seu navegador não suporta a exibição de vídeos.
+    </video>
 </div>
             <!-- CARD DO PRODUTO (RENDERIZADO VIA JS) -->
             <div id="limpaPratasCardContainer" class="highlight-product-container"></div>
