@@ -99,7 +99,7 @@ button {
 }
 
 .logo-img {
-    height: 42px;
+    height: 62px;
     width: auto;
     object-fit: contain;
 }
@@ -183,7 +183,7 @@ button {
 }
 
 .hero-logo {
-    width: 180px;
+    width: 200px;
     height: auto;
     object-fit: contain;
     margin-bottom: 20px;
