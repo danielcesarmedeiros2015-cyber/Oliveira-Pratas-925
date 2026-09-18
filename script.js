@@ -896,7 +896,7 @@ function renderWordSearchGame(container) {
 
 // JOGO 4: DESAFIO DA PRATA (EXPANDIDO COM ROTAÇÃO E PERGUNTAS ALEATÓRIAS)
 function renderChallengeGame(container) {
-    // Lista de desafios focada exclusivamente em Joias de Prata 925
+// Lista de desafios focada exclusivamente em Joias de Prata 925
     const allChallenges = [
         { q: "Qual destas peças é uma Corrente Grumet?", targetId: 76, options: [76, 24, 90, 105] },
         { q: "Qual destas peças é um Anel Solitário?", targetId: 24, options: [24, 35, 80, 111] },
