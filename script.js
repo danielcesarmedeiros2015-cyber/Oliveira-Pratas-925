@@ -754,7 +754,6 @@ function renderQuizGame(container) {
 
     showQuestion();
 }
-}
 
 // JOGO 3: CAÇA-PALAVRAS (GRID EXPANDIDO, DIREÇÕES VARIADAS E DISTRIBUIÇÃO DINÂMICA)
 function renderWordSearchGame(container) {
