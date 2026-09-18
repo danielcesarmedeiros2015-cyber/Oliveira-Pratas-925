@@ -100,9 +100,8 @@ button {
 
 .logo-img {
     height: 42px;
-    width: 42px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: auto;
+    object-fit: contain;
 }
 
 .brand-name {
