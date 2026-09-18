@@ -989,159 +989,137 @@ function renderChallengeGame(container) {
     showChallenge();
 }
 
-// JOGO 5: ROLETA DE DESCONTOS
+// JOGO 5: ROLETA DE DESCONTOS (ALINHAMENTO PERFEITO DE TEXTOS E CORES)
 function renderRouletteGame(container) {
-    const lastSpinTimestamp = localStorage.getItem('op_last_spin_time');
-    const now = Date.now();
-    const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
-
-    if (lastSpinTimestamp && (now - parseInt(lastSpinTimestamp, 10)) < TWENTY_FOUR_HOURS) {
-        const remainingTime = TWENTY_FOUR_HOURS - (now - parseInt(lastSpinTimestamp, 10));
-        const hoursLeft = Math.floor(remainingTime / (1000 * 60 * 60));
-        const minutesLeft = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-        const activeBenefit = localStorage.getItem('op_benefit_percent') || 0;
-
-        container.innerHTML = `
-            <div class="game-box" style="text-align: center; padding: 20px;">
-                <h2>🎡 Roleta de Descontos</h2>
-                <p style="margin: 20px 0; font-size: 1.1rem; color: #25d366;">Você já rodou a roleta recentemente!</p>
-                ${activeBenefit > 0 ? `<p style="margin-bottom: 15px;">Seu desconto ativo no carrinho é de: <strong>${activeBenefit}% OFF</strong></p>` : ''}
-                <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                    Você poderá girar novamente em aproximadamente <strong>${hoursLeft}h e ${minutesLeft}min</strong>.
-                </p>
-            </div>
-        `;
-        return;
-    }
-
-    // Configuração das 10 fatias alternadas (10% posicionados em lados opostos)
-    const options = [
-        { label: '2%', value: 2, color: '#8cc63f' },
-        { label: '5%', value: 5, color: '#009688' },
-        { label: '8%', value: 8, color: '#0088cc' },
-        { label: '2%', value: 2, color: '#1a53ff' },
-        { label: '10%', value: 10, color: '#6b21a8' }, // 10% Lado Direito
-        { label: '2%', value: 2, color: '#ec4899' },
-        { label: '5%', value: 5, color: '#f97316' },
-        { label: '8%', value: 8, color: '#eab308' },
-        { label: '10%', value: 10, color: '#a3e635' }, // 10% Lado Esquerdo (Paralelo)
-        { label: '2%', value: 2, color: '#06b6d4' }
+    const prizes = [
+        { label: "8%", color: "#8cc63f" },
+        { label: "10%", color: "#00a88f" },
+        { label: "2%", color: "#009edb" },
+        { label: "2%", color: "#2e3192" },
+        { label: "5%", color: "#662d91" },
+        { label: "8%", color: "#ec008c" },
+        { label: "2%", color: "#f7941e" },
+        { label: "10%", color: "#f15a24" },
+        { label: "2%", color: "#ffcc00" },
+        { label: "5%", color: "#a3d39c" }
     ];
 
-    const numSlices = options.length;
-    const sliceAngle = 360 / numSlices;
+    const sliceAngle = 360 / prizes.length; // 36deg por fatia
 
-    let gradientParts = [];
-    options.forEach((opt, idx) => {
-        const start = idx * sliceAngle;
-        const end = (idx + 1) * sliceAngle;
-        gradientParts.push(`${opt.color} ${start}deg ${end}deg`);
-    });
+    // Constrói o gradiente cónico para as 10 fatias de cores
+    const conicGradient = prizes.map((p, i) => {
+        const start = i * sliceAngle;
+        const end = (i + 1) * sliceAngle;
+        return `${p.color} ${start}deg ${end}deg`;
+    }).join(', ');
 
-    container.innerHTML = `
-        <div class="game-box" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-            <h2 style="margin-bottom: 20px;">🎡 Roleta de Descontos</h2>
-            
-            <div style="position: relative; width: 280px; height: 280px; margin: 10px auto 25px auto;">
-                <!-- Disco da Roleta -->
-                <div id="roulette-wheel" style="
-                    width: 100%; 
-                    height: 100%; 
-                    border-radius: 50%; 
-                    background: conic-gradient(${gradientParts.join(', ')});
-                    position: relative;
-                    transition: transform 4s cubic-bezier(0.15, 0.85, 0.35, 1.02);
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-                ">
-                    ${options.map((opt, idx) => {
-                        const angle = idx * sliceAngle + (sliceAngle / 2);
-                        return `
-                            <div style="
-                                position: absolute;
-                                top: 50%;
-                                left: 50%;
-                                width: 100px;
-                                height: 30px;
-                                margin-top: -15px;
-                                margin-left: -50px;
-                                transform-origin: center center;
-                                transform: rotate(${angle}deg) translate(85px) rotate(90deg);
-                                color: #ffffff;
-                                font-weight: bold;
-                                font-size: 16px;
-                                text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-                                pointer-events: none;
-                            ">
-                                ${opt.label}
-                            </div>
-                        `;
-                    }).join('')}
-                </div>
-
-                <!-- Botão Central com Apontador -->
-                <button id="spin-btn" onclick="spinRoulette()" style="
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 75px;
-                    height: 75px;
-                    border-radius: 50%;
-                    background: #002b80;
-                    color: white;
-                    border: 3px solid #ffffff;
+    // Gera os elementos de texto alinhados exatamente no meio de cada fatia
+    const labelsHTML = prizes.map((p, i) => {
+        const centerAngle = i * sliceAngle + (sliceAngle / 2);
+        return `
+            <div style="
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                padding-top: 18px;
+                transform: rotate(${centerAngle}deg);
+                transform-origin: 50% 50%;
+                pointer-events: none;
+            ">
+                <span style="
+                    color: #fff;
                     font-weight: bold;
                     font-size: 15px;
-                    cursor: pointer;
-                    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+                    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+                    transform: rotate(0deg);
+                ">${p.label}</span>
+            </div>
+        `;
+    }).join('');
+
+    container.innerHTML = `
+        <div class="game-box" style="text-align: center; padding: 20px;">
+            <h2>🎰 Roleta de Descontos</h2>
+            <p style="margin-bottom: 20px; color: var(--text-secondary);">Gire e ganhe um cupom de desconto exclusivo!</p>
+            
+            <div style="position: relative; width: 280px; height: 280px; margin: 0 auto 20px;">
+                <!-- Marcador/Ponteiro Superior -->
+                <div style="
+                    position: absolute;
+                    top: -12px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 0; height: 0;
+                    border-left: 12px solid transparent;
+                    border-right: 12px solid transparent;
+                    border-top: 20px solid #fff;
                     z-index: 10;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.5));
+                "></div>
+
+                <!-- Roda da Roleta -->
+                <div id="wheelDisk" style="
+                    width: 100%; height: 100%;
+                    border-radius: 50%;
+                    background: conic-gradient(${conicGradient});
+                    position: relative;
+                    transition: transform 4s cubic-bezier(0.15, 0.99, 0.18, 1);
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+                    overflow: hidden;
                 ">
-                    <div style="
-                        position: absolute;
-                        top: -12px;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        width: 0;
-                        height: 0;
-                        border-left: 9px solid transparent;
-                        border-right: 9px solid transparent;
-                        border-bottom: 14px solid #002b80;
-                    "></div>
-                    Girar
-                </button>
+                    ${labelsHTML}
+                </div>
+
+                <!-- Botão Central Girar -->
+                <button id="spinBtn" onclick="spinWheel()" style="
+                    position: absolute;
+                    top: 50%; left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 70px; height: 70px;
+                    border-radius: 50%;
+                    background: #002266;
+                    color: #fff;
+                    border: 3px solid #fff;
+                    font-weight: bold;
+                    font-size: 14px;
+                    cursor: pointer;
+                    z-index: 5;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+                ">Girar</button>
             </div>
         </div>
     `;
 
-    window.spinRoulette = function() {
-        const btn = document.getElementById('spin-btn');
-        const wheel = document.getElementById('roulette-wheel');
+    let isSpinning = false;
+
+    window.spinWheel = () => {
+        if (isSpinning) return;
+        isSpinning = true;
+
+        const btn = document.getElementById('spinBtn');
+        const wheel = document.getElementById('wheelDisk');
         btn.disabled = true;
 
-        const selectedIndex = Math.floor(Math.random() * numSlices);
-        const selectedOption = options[selectedIndex];
+        const winningIndex = Math.floor(Math.random() * prizes.length);
+        const winningPrize = prizes[winningIndex];
 
-        const targetAngle = 360 - (selectedIndex * sliceAngle + sliceAngle / 2);
-        const totalRotation = (360 * 5) + targetAngle;
+        // Calcula a rotação para alinhar a fatia sorteada com o marcador superior (0 deg)
+        const centerAngle = winningIndex * sliceAngle + (sliceAngle / 2);
+        const targetDegrees = 3600 + (360 - centerAngle);
 
-        wheel.style.transform = `rotate(${totalRotation}deg)`;
+        wheel.style.transform = `rotate(${targetDegrees}deg)`;
 
         setTimeout(() => {
-            localStorage.setItem('op_last_spin_time', Date.now().toString());
-            localStorage.setItem('op_benefit_percent', selectedOption.value.toString());
-
-            if (typeof updateCartUI === 'function') {
-                updateCartUI();
-            }
-
             container.innerHTML = `
-                <div class="game-box" style="text-align: center; padding: 25px;">
-                    <h2>🎉 Parabéns!</h2>
-                    <p style="font-size: 18px; margin: 15px 0;">Você ganhou <strong>${selectedOption.label} OFF</strong> na sua compra!</p>
-                    <p style="color: var(--text-secondary); margin-bottom: 20px;">O desconto já foi aplicado ao seu carrinho.</p>
+                <div style="text-align: center; padding: 25px;">
+                    <h2 style="font-size: 22px; margin-bottom: 15px;">Parabéns! 🎉</h2>
+                    <p style="font-size: 18px; margin-bottom: 10px;">Você ganhou <strong>${winningPrize.label} de desconto</strong>!</p>
+                    <p style="color: var(--text-secondary); margin-bottom: 25px;">Utilize no seu carrinho antes de finalizar a compra.</p>
+                    <button onclick="renderRouletteGame(document.getElementById('gameContainer') || this.closest('.game-container') || this.parentElement.parentElement)" class="btn btn-outline" style="width: 100%; max-width: 250px;">
+                        Girar Novamente 🔄
+                    </button>
                 </div>
             `;
         }, 4200);
