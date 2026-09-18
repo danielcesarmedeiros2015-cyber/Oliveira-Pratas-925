@@ -921,7 +921,7 @@ function renderChallengeGame(container) {
         { q: "Qual destas peças é uma Corrente Grumet?", targetId: 76, options: [76, 24, 90, 105] },
         { q: "Qual destas peças é um Anel Solitário?", targetId: 24, options: [24, 35, 80, 111] },
         { q: "Qual destas peças é um Pingente Cruz Palito?", targetId: 90, options: [90, 84, 86, 95] },
-        { q: "Qual destas peças é uma Pulseira Coração Vermelho?", targetId: 105, options: [105, 113, 120, 123] },
+        { q: "Qual destas peças é uma Pulseira Coração Vermelho?", targetId: 117, options: [117, 113, 120, 123] },
         { q: "Qual destas peças é um Piercing de Nariz?", targetId: 132, options: [132, 133, 37, 42] }
     ];
 
