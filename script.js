@@ -31,7 +31,6 @@ const PRODUCTS = [
     { id: 23, name: "Anel de Prata 925 coração torcido", price: 50, category: "ANÉIS", image: "Anel de Prata 925 coração Torçido.jpg", isBestSeller: false },
     { id: 24, name: "Anel de Prata 925 Solitário", price: 50, category: "ANÉIS", image: "Anel de Prata 925 Solitário.jpg", isBestSeller: true },
     { id: 25, name: "Anel Love Cravejado", price: 65, category: "ANÉIS", image: "Anel Love Cravejado.jpg", isBestSeller: false },
-    { id: 26, name: "Anel solitário cravejado prata 925", price: 80, category: "ANÉIS", image: "Anel solitario cravejado prata 925.webp", isBestSeller: true },
     { id: 27, name: "Anel Trevo de Corações", price: 60, category: "ANÉIS", image: "Anel Trevo de Corações.jpg", isBestSeller: false },
     { id: 28, name: "Anel Amor 5,5mm", price: 60, category: "ANÉIS", image: "Anel Amor 5,5mm Prata 925.jpg", isBestSeller: false },
     { id: 29, name: "Anel Concha", price: 50, category: "ANÉIS", image: "Anel Concha.jpg", isBestSeller: false },
@@ -39,7 +38,6 @@ const PRODUCTS = [
     { id: 31, name: "Anel Corações Cravejado", price: 65, category: "ANÉIS", image: "anel corações cravejado prata 925 (1).webp", isBestSeller: false },
     { id: 32, name: "Anel trevo cravejado prata 925", price: 65, category: "ANÉIS", image: "Anel trevo cravejado prata 925.webp", isBestSeller: false },
     { id: 33, name: "Anel Quadrado", price: 70, category: "ANÉIS", image: "Anel Quadrado.jpg", isBestSeller: false },
-    { id: 34, name: "Anel Solitário Cravejado Prata 925", price: 70, category: "ANÉIS", image: "ANEL SOLITARIO CRAVEJADO.webp", isBestSeller: true },
 
     // DEDEIRAS
     { id: 35, name: "Anel de prata 925 Flamengo", price: 270, category: "DEDEIRAS", image: "Anel de prata 925 Flamengo.png", isBestSeller: false },
