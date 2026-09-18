@@ -895,16 +895,17 @@ function renderWordSearchGame(container) {
 }
 
 // JOGO 4: DESAFIO DA PRATA (EXPANDIDO COM ROTAÇÃO E PERGUNTAS ALEATÓRIAS)
-// Lista de desafios focada exclusivamente em Joias de Prata 925
+function renderChallengeGame(container) {
+    // Lista de desafios focada exclusivamente em Joias de Prata 925
     const allChallenges = [
-        { q: "Qual destas peças é uma Corrente Grumet?", targetId: 76, options: [...] },
-        { q: "Qual destas peças é um Anel Solitário?", targetId: 24, options: [...] },
-        { q: "Qual destas peças é um Pingente Cruz Palito?", targetId: 90, options: [...] },
-        { q: "Qual destas peças é uma Pulseira Coração Vermelho?", targetId: 105, options: [...] },
-        { q: "Qual destas peças é um Piercing de Nariz?", targetId: 132, options: [...] }
+        { q: "Qual destas peças é uma Corrente Grumet?", targetId: 76, options: [76, 24, 90, 105] },
+        { q: "Qual destas peças é um Anel Solitário?", targetId: 24, options: [24, 35, 80, 111] },
+        { q: "Qual destas peças é um Pingente Cruz Palito?", targetId: 90, options: [90, 84, 86, 95] },
+        { q: "Qual destas peças é uma Pulseira Coração Vermelho?", targetId: 105, options: [105, 113, 120, 123] },
+        { q: "Qual destas peças é um Piercing de Nariz?", targetId: 132, options: [132, 133, 37, 42] }
     ];
 
-    // Sorteia 5 desafios aleatórios por partida (ou altere o número 5 para a quantidade desejada)
+    // Sorteia 5 desafios aleatórios por partida
     const selectedChallenges = [...allChallenges].sort(() => Math.random() - 0.5).slice(0, 5);
 
     let step = 0;
@@ -931,39 +932,39 @@ function renderWordSearchGame(container) {
         `;
     }
 
-  window.checkChallengeAnswer = (selectedId) => {
-    if (selectedId === selectedChallenges[step].targetId) {
-        acertos++;
-    }
-
-    step++;
-
-    if (step < selectedChallenges.length) {
-        showChallenge();
-    } else {
-        let mensagem = "";
-        const porcentagem = (acertos / selectedChallenges.length) * 100;
-
-        if (porcentagem === 100) {
-            mensagem = "🏆 Mestre da Prata 925! Você acertou tudo!";
-        } else if (porcentagem >= 60) {
-            mensagem = "👏 Muito bem! Você conhece muito bem nossas joias!";
-        } else {
-            mensagem = "💡 Quase lá! Que tal dar uma olhada no nosso catálogo para conhecer mais?";
+    window.checkChallengeAnswer = (selectedId) => {
+        if (selectedId === selectedChallenges[step].targetId) {
+            acertos++;
         }
 
-        container.innerHTML = `
-            <div style="text-align: center; padding: 25px;">
-                <h2 style="font-size: 22px; margin-bottom: 15px;">Fim do Desafio! 🎉</h2>
-                <p style="font-size: 18px; margin-bottom: 10px;">Você acertou <strong>${acertos}</strong> de <strong>${selectedChallenges.length}</strong> perguntas.</p>
-                <p style="color: var(--text-secondary); margin-bottom: 25px;">${mensagem}</p>
-                <button onclick="renderChallengeGame(container)" class="btn btn-outline" style="width: 100%; max-width: 250px;">
-                    Jogar Novamente 🔄
-                </button>
-            </div>
-        `;
-    }
-};
+        step++;
+
+        if (step < selectedChallenges.length) {
+            showChallenge();
+        } else {
+            let mensagem = "";
+            const porcentagem = (acertos / selectedChallenges.length) * 100;
+
+            if (porcentagem === 100) {
+                mensagem = "🏆 Mestre da Prata 925! Você acertou tudo!";
+            } else if (porcentagem >= 60) {
+                mensagem = "👏 Muito bem! Você conhece muito bem nossas joias!";
+            } else {
+                mensagem = "💡 Quase lá! Que tal dar uma olhada no nosso catálogo para conhecer mais?";
+            }
+
+            container.innerHTML = `
+                <div style="text-align: center; padding: 25px;">
+                    <h2 style="font-size: 22px; margin-bottom: 15px;">Fim do Desafio! 🎉</h2>
+                    <p style="font-size: 18px; margin-bottom: 10px;">Você acertou <strong>${acertos}</strong> de <strong>${selectedChallenges.length}</strong> perguntas.</p>
+                    <p style="color: var(--text-secondary); margin-bottom: 25px;">${mensagem}</p>
+                    <button onclick="renderChallengeGame(document.getElementById('gameContainer'))" class="btn btn-outline" style="width: 100%; max-width: 250px;">
+                        Jogar Novamente 🔄
+                    </button>
+                </div>
+            `;
+        }
+    };
 
     showChallenge();
 }
