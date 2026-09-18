@@ -40,30 +40,30 @@ const PRODUCTS = [
     { id: 33, name: "Anel Quadrado", price: 70, category: "ANÉIS", image: "Anel Quadrado.jpg", isBestSeller: false },
 
     // DEDEIRAS
-    { id: 35, name: "Anel de prata 925 Flamengo", price: 270, category: "DEDEIRAS", image: "Anel de prata 925 Flamengo.png", isBestSeller: false },
-    { id: 36, name: "Anel Folha", price: 200, category: "DEDEIRAS", image: "Anel Folha.png", isBestSeller: false },
+    { id: 35, name: "Anel de prata 925 Flamengo", price: 270, category: "DEDEIRAS", image: "Anel de prata 925 Flamengo.png", isBestSeller: true },
+    { id: 36, name: "Anel Folha", price: 200, category: "DEDEIRAS", image: "Anel Folha.png", isBestSeller: true },
 
     // BRINCOS
-    { id: 37, name: "Brinco Redondo 12mm", price: 80, category: "BRINCOS", image: "Brinco Redondo 12mm de Prata 925.png", isBestSeller: false },
+    { id: 37, name: "Brinco Redondo 12mm", price: 80, category: "BRINCOS", image: "Brinco Redondo 12mm de Prata 925.png", isBestSeller: true },
     { id: 38, name: "Brinco Redondo Argola Torcida", price: 30, category: "BRINCOS", image: "Brinco Redondo Argola Torcida Prata 925.png", isBestSeller: true },
     { id: 41, name: "Par de Brincos Argola Click + Cruz", price: 80, category: "BRINCOS", image: "Par de Brincos Argola Click com Pingente Cruz Cravejada.png", isBestSeller: true },
     { id: 42, name: "Trio de brincos bolinhas", price: 40, category: "BRINCOS", image: "Trio de brincos bolinhas.jpg", isBestSeller: false },
     { id: 43, name: "Trio de Brincos Redondo Royal", price: 40, category: "BRINCOS", image: "Trio de Brincos Redondo Royal.png", isBestSeller: false },
     { id: 44, name: "Brinco Baby Cruz", price: 40, category: "BRINCOS", image: "Brinco Baby Cruz.jpg", isBestSeller: false },
-    { id: 45, name: "Par Brinco Coração 4mm", price: 30, category: "BRINCOS", image: "Par Brinco Coração 4mm.png", isBestSeller: false },
+    { id: 45, name: "Par Brinco Coração 4mm", price: 30, category: "BRINCOS", image: "Par Brinco Coração 4mm.png", isBestSeller: true },
     { id: 46, name: "Par Brincos Coração Argola Torcida", price: 30, category: "BRINCOS", image: "Par Brincos Coração Argola Torcida.jpg", isBestSeller: false },
-    { id: 47, name: "Par Brincos Cravejado Batimentos", price: 50, category: "BRINCOS", image: "Par Brincos Cravejado Batimentos.jpg", isBestSeller: false },
+    { id: 47, name: "Par Brincos Cravejado Batimentos", price: 50, category: "BRINCOS", image: "Par Brincos Cravejado Batimentos.jpg", isBestSeller: true },
     { id: 48, name: "Par de Brincos Argola Infinito", price: 40, category: "BRINCOS", image: "Par de Brincos Argola Infinito.jpg", isBestSeller: false },
     { id: 49, name: "Trio Quadrado 3, 4 e 5mm", price: 50, category: "BRINCOS", image: "Trio Quadrado 3, 4 e 5mm.jpg", isBestSeller: false },
     { id: 50, name: "Trio Redondo Pedra Verde 3, 4 e 5mm", price: 40, category: "BRINCOS", image: "Trio Redondo Pedra Verde 3, 4 e 5mm.jpg", isBestSeller: false },
 
     // COLARES FEMININO
-    { id: 52, name: "Choker de Prata 925 Corações Verde", price: 130, category: "COLARES FEMININO", image: "Choker de Prata 925 Corações Verde.jpg", isBestSeller: false },
-    { id: 53, name: "Choker de Prata 925 Love", price: 130, category: "COLARES FEMININO", image: "Choker de Prata 925 Love.jpg", isBestSeller: false },
+    { id: 52, name: "Choker de Prata 925 Corações Verde", price: 130, category: "COLARES FEMININO", image: "Choker de Prata 925 Corações Verde.jpg", isBestSeller: true },
+    { id: 53, name: "Choker de Prata 925 Love", price: 130, category: "COLARES FEMININO", image: "Choker de Prata 925 Love.jpg", isBestSeller: true },
     { id: 54, name: "Colar Barbie", price: 99, category: "COLARES FEMININO", image: "Colar Barbie em Prata 925 Legítima.jpg", isBestSeller: false },
     { id: 55, name: "Colar Borboleta com Zircônias Coloridas", price: 99, category: "COLARES FEMININO", image: "Colar Borboleta Prata 925 Legítima Com Zircônias Coloridas.jpg", isBestSeller: false },
     { id: 56, name: "Colar Cravejado importado (2)", price: 700, category: "COLARES FEMININO", image: "Colar Cravejado importado (2).jpg", isBestSeller: true },
-    { id: 57, name: "Colar Singapura + Coração Cravejado", price: 190, category: "COLARES FEMININO", image: "Colar de Prata 925 Feminino - Corrente Singapura com Pingente Coração Cravejado.jpg", isBestSeller: false },
+    { id: 57, name: "Colar Singapura + Coração Cravejado", price: 190, category: "COLARES FEMININO", image: "Colar de Prata 925 Feminino - Corrente Singapura com Pingente Coração Cravejado.jpg", isBestSeller: true },
     { id: 58, name: "Colar Bailarina Cravejada", price: 99, category: "COLARES FEMININO", image: "Colar De Prata 925 Legítima Bailarina Cravejada Zircônia.jpg", isBestSeller: false },
     { id: 59, name: "Colar Modelo Pipoca", price: 100, category: "COLARES FEMININO", image: "Colar de Prata 925 Modelo Pipoca.jpg", isBestSeller: false },
     { id: 60, name: "Colar Mandala Abençoada por Deus", price: 99, category: "COLARES FEMININO", image: "Colar em Prata 925 Legítima - Pingente Mandala Abençoada por Deus.jpg", isBestSeller: false },
@@ -74,12 +74,12 @@ const PRODUCTS = [
     { id: 65, name: "Conjunto Coração Vermelho", price: 100, category: "COLARES FEMININO", image: "Conjunto Coração vermelho em Prata 925.jpg", isBestSeller: true },
     { id: 66, name: "Conjunto Ponto de Luz Verde Esmeralda", price: 99, category: "COLARES FEMININO", image: "Conjunto Ponto de Luz Prata 925 Verde Esmeralda (Colar + Brincos).jpg", isBestSeller: false },
     { id: 67, name: "Conjunto Coração Prata 925 Legítima - Colar Veneziana + Brincos Azul Turquesa", price: 99, category: "COLARES FEMININO", image: "Conjunto Coração Prata 925 Legítima - Colar Veneziana + Brincos Azul Turquesa.jpg", isBestSeller: true },
-    { id: 68, name: "Gargantilha 6 Fios", price: 550, category: "COLARES FEMININO", image: "Gargantilha 6 Fios em Prata 925.jpg", isBestSeller: false },
+    { id: 68, name: "Gargantilha 6 Fios", price: 550, category: "COLARES FEMININO", image: "Gargantilha 6 Fios em Prata 925.jpg", isBestSeller: true },
     { id: 69, name: "Gargantilha Aspiral 45cm 2,5mm", price: 140, category: "COLARES FEMININO", image: "Gargantilha Aspiral 45cm 2,5mm.jpg", isBestSeller: false },
     { id: 70, name: "Gargantilha Coração Rosa", price: 120, category: "COLARES FEMININO", image: "Gargantilha Coração Rosa.jpg", isBestSeller: false },
     { id: 71, name: "Gargantilha Pingente Menina", price: 99, category: "COLARES FEMININO", image: "Gargantilha Pingente Menina Prata 925 Italiana.jpg", isBestSeller: false },
     { id: 72, name: "Terço de Prata 925", price: 160, category: "COLARES FEMININO", image: "Terço de Prata 925 corrente fina bolinha 2.5mm.jpg", isBestSeller: false },
-    { id: 73, name: "Colar Coração Roxo", price: 120, category: "COLARES FEMININO", image: "Colar Coração Roxo.jpg", isBestSeller: false },
+    { id: 73, name: "Colar Coração Roxo", price: 120, category: "COLARES FEMININO", image: "Colar Coração Roxo.jpg", isBestSeller: true },
 
     // CORRENTES MASCULINAS
     { id: 74, name: "Colar Baiano 2mm 70cm", price: 249, category: "CORRENTES MASCULINAS", image: "Colar baiano 2mm 70cm Prata 925.png", isBestSeller: false },
@@ -124,30 +124,30 @@ const PRODUCTS = [
 
     // PULSEIRAS MASCULINAS
     { id: 111, name: "Pulseira Grumet elo duplo 3,5mm", price: 149, category: "PULSEIRAS MASCULINAS", image: "Pulseira Grumet elo duplo 3,5mm Prata 925.jpg", isBestSeller: true },
-    { id: 112, name: "Pulseira 8,2mm", price: 299, category: "PULSEIRAS MASCULINAS", image: "pulseira8,2mm.jpg", isBestSeller: false },
+    { id: 112, name: "Pulseira 8,2mm", price: 299, category: "PULSEIRAS MASCULINAS", image: "pulseira8,2mm.jpg", isBestSeller: true },
     { id: 113, name: "Pulseira Esteira 2,4mm", price: 99, category: "PULSEIRAS MASCULINAS", image: "pulseira esteira 2,4mm.jpg", isBestSeller: true },
     { id: 114, name: "Pulseira Grumet Elo Duplo 2mm", price: 80, category: "PULSEIRAS MASCULINAS", image: "Pulseira Grumet elo duplo 2mm.jpg", isBestSeller: true },
-    { id: 115, name: "Pulseira Tripla", price: 90, category: "PULSEIRAS MASCULINAS", image: "Pulseira Tripla.jpg", isBestSeller: false },
+    { id: 115, name: "Pulseira Tripla", price: 90, category: "PULSEIRAS MASCULINAS", image: "Pulseira Tripla.jpg", isBestSeller: true },
 
     // PULSEIRAS FEMININAS
     { id: 116, name: "Pulseira Bolinhas 4mm 18cm", price: 100, category: "PULSEIRAS FEMININAS", image: "Pulseira Bolinhas 4mm 18cm 6.2g.jpg", isBestSeller: true },
     { id: 117, name: "Pulseira Coração Vermelho", price: 70, category: "PULSEIRAS FEMININAS", image: "pulseira coração vermelho.jpg", isBestSeller: true },
-    { id: 118, name: "Pulseira de Prata 925 com Pingentes Delicados", price: 150, category: "PULSEIRAS FEMININAS", image: "Pulseira de Prata 925 com Pingentes Delicados.jpeg", isBestSeller: false },
-    { id: 119, name: "Pulseira Dupla com Pingentes Delicados", price: 150, category: "PULSEIRAS FEMININAS", image: "Pulseira Dupla em Prata 925 Com Pingentes Delicados.jpeg", isBestSeller: false },
+    { id: 118, name: "Pulseira de Prata 925 com Pingentes Delicados", price: 150, category: "PULSEIRAS FEMININAS", image: "Pulseira de Prata 925 com Pingentes Delicados.jpeg", isBestSeller: true },
+    { id: 119, name: "Pulseira Dupla com Pingentes Delicados", price: 150, category: "PULSEIRAS FEMININAS", image: "Pulseira Dupla em Prata 925 Com Pingentes Delicados.jpeg", isBestSeller: true },
     { id: 120, name: "Pulseira Prata 925 com Pedras Verdes", price: 70, category: "PULSEIRAS FEMININAS", image: "Pulseira Prata 925 com Pedras Verdes.jpg", isBestSeller: true },
-    { id: 121, name: "Pulseira Feminina Bolinhas", price: 129, category: "PULSEIRAS FEMININAS", image: "pulseira feminina bolinhas.jpg", isBestSeller: false },
-    { id: 122, name: "Pulseira Prata 925 com Pedras Zircônia Branca", price: 70, category: "PULSEIRAS FEMININAS", image: "Pulseira Prata 925 com Pedras Zircônia Branca .jpg", isBestSeller: false },
+    { id: 121, name: "Pulseira Feminina Bolinhas", price: 129, category: "PULSEIRAS FEMININAS", image: "pulseira feminina bolinhas.jpg", isBestSeller: true },
+    { id: 122, name: "Pulseira Prata 925 com Pedras Zircônia Branca", price: 70, category: "PULSEIRAS FEMININAS", image: "Pulseira Prata 925 com Pedras Zircônia Branca .jpg", isBestSeller: true },
     { id: 123, name: "Pulseira Trançada 8 Fios", price: 297, category: "PULSEIRAS FEMININAS", image: "pulseira trançada 8 fios.jpg", isBestSeller: true },
 
     // BRACELETES
-    { id: 124, name: "Bracelete Arredondado com Trava", price: 100, category: "BRACELETES", image: "Bracelete Arredondado com trava prata 925.png", isBestSeller: false },
-    { id: 125, name: "Bracelete Fio Torcido / Fecho de Prata 925 Pequeno", price: 80, category: "BRACELETES", image: "Bracelete fio Torçido prata 925.png", isBestSeller: false },
-    { id: 126, name: "Bracelete Regulável Coração Infinito", price: 70, category: "BRACELETES", image: "Bracelete Regulavel Coração infinito.jpg", isBestSeller: false },
+    { id: 124, name: "Bracelete Arredondado com Trava", price: 100, category: "BRACELETES", image: "Bracelete Arredondado com trava prata 925.png", isBestSeller: true },
+    { id: 125, name: "Bracelete Fio Torcido / Fecho de Prata 925 Pequeno", price: 80, category: "BRACELETES", image: "Bracelete fio Torçido prata 925.png", isBestSeller: true },
+    { id: 126, name: "Bracelete Regulável Coração Infinito", price: 70, category: "BRACELETES", image: "Bracelete Regulavel Coração infinito.jpg", isBestSeller: true },
 
     // TORNOZELEIRAS
-    { id: 127, name: "Tornozeleira Calda", price: 75, category: "TORNOZELEIRAS", image: "Tornozeleira Calda Prata 925.jpg", isBestSeller: false },
-    { id: 128, name: "Tornozeleira Coração Origami", price: 75, category: "TORNOZELEIRAS", image: "Tornozeleira Coração Origami Prata 925.jpg", isBestSeller: false },
-    { id: 129, name: "Tornozeleira Gota Verde", price: 75, category: "TORNOZELEIRAS", image: "Tornozeleira de Prata 925 gota Verde.jpg", isBestSeller: false },
+    { id: 127, name: "Tornozeleira Calda", price: 75, category: "TORNOZELEIRAS", image: "Tornozeleira Calda Prata 925.jpg", isBestSeller: true },
+    { id: 128, name: "Tornozeleira Coração Origami", price: 75, category: "TORNOZELEIRAS", image: "Tornozeleira Coração Origami Prata 925.jpg", isBestSeller: true },
+    { id: 129, name: "Tornozeleira Gota Verde", price: 75, category: "TORNOZELEIRAS", image: "Tornozeleira de Prata 925 gota Verde.jpg", isBestSeller: true },
 
     // CUIDADOS
     { id: 130, name: "Limpa Pratas", price: 25, category: "CUIDADOS", image: "Limpa Pratas.jpg", isBestSeller: true },
@@ -155,10 +155,10 @@ const PRODUCTS = [
 
     // PIERCINGS
     { id: 132, name: "Piercing Pedrinha de Nariz", price: 30, category: "PIERCINGS", image: "Piercing Pedrinha nariz na Prata 925.webp", isBestSeller: true },
-    { id: 133, name: "Par Piercing Mamilo", price: 90, category: "PIERCINGS", image: "Par Piercing Mamilo.png", isBestSeller: true },
-    { id: 134, name: "Piercing Argola com Flor", price: 30, category: "PIERCINGS", image: "Piercing Argola com Flor.png", isBestSeller: true },
-    { id: 135, name: "Piercing Argola Lisa", price: 30, category: "PIERCINGS", image: "Piercing Argola Lisa.png", isBestSeller: true },
-    { id: 136, name: "Piercing Nariz Argola Coração", price: 30, category: "PIERCINGS", image: "Piercing Nariz Argola Coração.png", isBestSeller: true }
+    { id: 133, name: "Par Piercing Mamilo", price: 90, category: "PIERCINGS", image: "Par Piercing Mamilo.png", isBestSeller: false },
+    { id: 134, name: "Piercing Argola com Flor", price: 30, category: "PIERCINGS", image: "Piercing Argola com Flor.png", isBestSeller: false },
+    { id: 135, name: "Piercing Argola Lisa", price: 30, category: "PIERCINGS", image: "Piercing Argola Lisa.png", isBestSeller: false },
+    { id: 136, name: "Piercing Nariz Argola Coração", price: 30, category: "PIERCINGS", image: "Piercing Nariz Argola Coração.png", isBestSeller: false }
 ];
 
 // TAXAS DE CARTÃO DE CRÉDITO
@@ -250,6 +250,8 @@ function renderCatalog(items = PRODUCTS) {
 
 function renderBestSellers() {
     const grid = document.getElementById('bestSellersGrid');
+    if (!grid) return; // Proteção para não dar erro se o elemento não existir
+    
     const bestSellers = PRODUCTS.filter(p => p.isBestSeller);
     grid.innerHTML = bestSellers.map(product => createProductCardHTML(product)).join('');
 }
