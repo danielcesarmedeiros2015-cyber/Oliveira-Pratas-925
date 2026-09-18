@@ -679,60 +679,81 @@ function renderMemoryGame(container) {
     });
 }
 
-// JOGO 2: QUIZ (COM EXPANSAO DE PERGUNTAS E ALTERNÂNCIA ALEATÓRIA)
+// JOGO 2: QUIZ (5 PERGUNTAS ALEATÓRIAS E CONTADOR DE ACERTOS)
 function renderQuizGame(container) {
     const allQuestions = [
-        { q: "Qual o teor de prata pura na Prata 925?", options: ["92,5%", "50%", "100%", "75%"], correct: 0 },
-        { q: "Qual desses cuidados ajuda a manter o brilho da prata?", options: ["Usar Limpa Pratas adequado", "Lavar com água sanitária", "Guardar no sol", "Usar palha de aço"], correct: 0 },
-        { q: "A Prata 950 contém mais prata pura que a 925?", options: ["Sim, possui 95% de prata pura", "Não, é inferior", "São idênticas", "Nenhuma das alternativas"], correct: 0 },
-        { q: "O escurecimento da prata (oxidação) é um processo normal?", options: ["Sim, é uma reação natural ao enxofre/suor", "Não, indica que a peça é falsa", "Ocorre apenas em bijuterias", "Acontece apenas se molhar com refrigerante"], correct: 0 },
-        { q: "Qual é o nome do produto indicado para devolver o brilho às suas joias?", options: ["Limpa Pratas", "Detergente de Maçã", "Sabão em Pó", "Álcool 70%"], correct: 0 },
-        { q: "Qual o metal de liga mais comum usado na Prata 925?", options: ["Cobre", "Ouro", "Alumínio", "Ferro"], correct: 0 },
-        { q: "Como guardar suas joias de prata para evitar oxidação precoce?", options: ["Em local seco, fechado e longe da umidade", "Dentro do congelador", "Expostas ao sol na janela", "Em local úmido como o banheiro"], correct: 0 },
-        { q: "O que a Zircônia representa nas joias em Prata 925?", options: ["Uma gema sintética de alto brilho que imita o diamante", "Um tipo de vidro comum", "Uma tinta prateada", "Um plástico rígido"], correct: 0 }
+        { q: "Qual o teor de prata pura na Prata 925?", options: ["92,5%", "50%", "100%", "75%"], correct: "92,5%" },
+        { q: "Qual desses cuidados ajuda a manter o brilho da prata?", options: ["Usar Limpa Pratas adequado", "Lavar com água salgada", "Guardar ao sol", "Usar perfume direto na peça"], correct: "Usar Limpa Pratas adequado" },
+        { q: "A Prata 950 contém mais prata pura que a 925?", options: ["Sim, possui 95% de prata pura", "Não, é inferior", "São idênticas", "Depende do tamanho"], correct: "Sim, possui 95% de prata pura" },
+        { q: "O escurecimento da prata (oxidação) é um processo normal?", options: ["Sim, é uma reação natural ao enxofre/suor", "Não, é defeito", "Só ocorre na prata falsa", "Nunca escurece"], correct: "Sim, é uma reação natural ao enxofre/suor" },
+        { q: "Qual é o nome do produto indicado para devolver o brilho às suas joias?", options: ["Limpa Pratas", "Detergente de louça", "Álcool 70%", "Sabão em pó"], correct: "Limpa Pratas" },
+        { q: "Qual o metal de liga mais comum usado na Prata 925?", options: ["Cobre", "Ouro", "Alumínio", "Ferro"], correct: "Cobre" },
+        { q: "Como guardar suas joias de prata para evitar oxidação precoce?", options: ["Em local seco, fechado e longe da umidade", "Expostas ao ar livre", "No banheiro", "Junto com bijuterias"], correct: "Em local seco, fechado e longe da umidade" },
+        { q: "O que a Zircônia representa nas joias em Prata 925?", options: ["Uma gema sintética de alto brilho que imita o diamante", "Um tipo de plástico", "Um metal pesado", "Uma tinta prateada"], correct: "Uma gema sintética de alto brilho que imita o diamante" }
     ];
 
-    // Embaralha todas as perguntas e sorteia 3 para a partida
-    const selectedQuestions = [...allQuestions].sort(() => Math.random() - 0.5).slice(0, 3);
-    
-    // Embaralha as opções de cada pergunta sorteada
-    selectedQuestions.forEach(q => {
-        const correctText = q.options[q.correct];
-        q.options.sort(() => Math.random() - 0.5);
-        q.correct = q.options.indexOf(correctText);
-    });
+    // Embaralha e seleciona 5 perguntas por partida
+    const selectedQuestions = [...allQuestions].sort(() => Math.random() - 0.5).slice(0, 5);
 
-    let qIndex = 0;
+    let currentStep = 0;
+    let acertos = 0;
 
     function showQuestion() {
-        const q = selectedQuestions[qIndex];
+        const current = selectedQuestions[currentStep];
+        // Embaralha as alternativas de resposta da pergunta atual
+        const shuffledOptions = [...current.options].sort(() => Math.random() - 0.5);
+
         container.innerHTML = `
-            <div class="game-box">
-                <h2>❓ Quiz de Prata 925</h2>
-                <p style="margin-bottom: 20px;">Pergunta ${qIndex + 1} de ${selectedQuestions.length}: ${q.q}</p>
-                <div class="quiz-options">
-                    ${q.options.map((opt, i) => `
-                        <button class="quiz-btn" onclick="checkQuizAnswer(${i})">${opt}</button>
+            <div class="game-box" style="text-align: center; padding: 20px;">
+                <span style="font-size: 14px; color: var(--text-secondary);">Pergunta ${currentStep + 1} de ${selectedQuestions.length}</span>
+                <h3 style="margin: 15px 0 20px;">${current.q}</h3>
+                <div style="display: flex; flex-direction: column; gap: 10px; max-width: 400px; margin: 0 auto;">
+                    ${shuffledOptions.map(opt => `
+                        <button class="btn btn-outline" style="width: 100%; text-align: left; padding: 12px 15px;" onclick="checkQuizAnswer('${opt.replace(/'/g, "\\'")}')">
+                            ${opt}
+                        </button>
                     `).join('')}
                 </div>
             </div>
         `;
     }
 
-    window.checkQuizAnswer = (ans) => {
-        if (ans === selectedQuestions[qIndex].correct) {
-            qIndex++;
-            if (qIndex < selectedQuestions.length) {
-                showQuestion();
-            } else {
-                finishMinigame('Quiz de Prata 925');
-            }
+    window.checkQuizAnswer = (selectedOption) => {
+        if (selectedOption === selectedQuestions[currentStep].correct) {
+            acertos++;
+        }
+
+        currentStep++;
+
+        if (currentStep < selectedQuestions.length) {
+            showQuestion();
         } else {
-            alert('Resposta incorreta! Tente novamente.');
+            let mensagem = "";
+            const porcentagem = (acertos / selectedQuestions.length) * 100;
+
+            if (porcentagem === 100) {
+                mensagem = "🏆 Perfeito! Você é um verdadeiro especialista em Prata 925!";
+            } else if (porcentagem >= 60) {
+                mensagem = "👏 Muito bom! Você tem ótimos conhecimentos sobre nossas joias!";
+            } else {
+                mensagem = "💡 Boa tentativa! Que tal ler nossas dicas sobre prata para acertar tudo na próxima?";
+            }
+
+            container.innerHTML = `
+                <div style="text-align: center; padding: 25px;">
+                    <h2 style="font-size: 22px; margin-bottom: 15px;">Fim do Quiz! 🎉</h2>
+                    <p style="font-size: 18px; margin-bottom: 10px;">Você acertou <strong>${acertos}</strong> de <strong>${selectedQuestions.length}</strong> perguntas.</p>
+                    <p style="color: var(--text-secondary); margin-bottom: 25px;">${mensagem}</p>
+                    <button onclick="renderQuizGame(document.getElementById('gameContainer'))" class="btn btn-outline" style="width: 100%; max-width: 250px;">
+                        Jogar Novamente 🔄
+                    </button>
+                </div>
+            `;
         }
     };
 
     showQuestion();
+}
 }
 
 // JOGO 3: CAÇA-PALAVRAS (GRID EXPANDIDO, DIREÇÕES VARIADAS E DISTRIBUIÇÃO DINÂMICA)
